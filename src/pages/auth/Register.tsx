@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -43,6 +42,10 @@ const Register = () => {
     } catch (err) {
       setError('Registration failed. Please try again.');
     }
+  };
+
+  const handleAgreementChange = (checked: boolean | "indeterminate") => {
+    setAgreed(checked === true);
   };
 
   return (
@@ -159,7 +162,7 @@ const Register = () => {
                     <Checkbox 
                       id="terms" 
                       checked={agreed}
-                      onCheckedChange={setAgreed}
+                      onCheckedChange={handleAgreementChange}
                     />
                     <Label htmlFor="terms" className="text-sm">
                       I agree to the{' '}
@@ -256,7 +259,7 @@ const Register = () => {
                     <Checkbox 
                       id="provider-terms" 
                       checked={agreed}
-                      onCheckedChange={setAgreed}
+                      onCheckedChange={handleAgreementChange}
                     />
                     <Label htmlFor="provider-terms" className="text-sm">
                       I agree to the{' '}
