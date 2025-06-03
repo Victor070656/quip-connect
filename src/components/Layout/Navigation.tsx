@@ -57,7 +57,7 @@ const Navigation = () => {
             {user ? (
               <div className="flex items-center space-x-2">
                 {userType === 'provider' && (
-                  <Button variant="outline" size="sm" onClick={() => navigate('/provider/add-service')}>
+                  <Button variant="outline" size="sm" onClick={() => navigate('/provider/services/add')}>
                     <Plus className="w-4 h-4 mr-1" />
                     Add Service
                   </Button>
@@ -77,6 +77,13 @@ const Navigation = () => {
                       <User className="w-4 h-4 mr-2" />
                       Dashboard
                     </DropdownMenuItem>
+                    {/* Admin access - in real app this would be role-based */}
+                    {user.email === 'admin@quip.com' && (
+                      <DropdownMenuItem onClick={() => navigate('/admin/dashboard')}>
+                        <Settings className="w-4 h-4 mr-2" />
+                        Admin Dashboard
+                      </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem onClick={() => navigate(`/${userType}/profile`)}>
                       <Settings className="w-4 h-4 mr-2" />
                       Profile Settings

@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound";
 import EnhancedBookService from "./pages/EnhancedBookService";
 import EnhancedAddService from "./pages/provider/EnhancedAddService";
 import EnhancedCustomerDashboard from "./pages/customer/EnhancedCustomerDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
               <Route path="/provider/dashboard" element={<ProviderDashboard />} />
               <Route path="/provider/services/add" element={<EnhancedAddService />} />
               <Route path="/customer/dashboard" element={<EnhancedCustomerDashboard />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
