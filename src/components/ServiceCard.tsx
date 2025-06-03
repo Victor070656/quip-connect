@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -25,6 +26,7 @@ interface ServiceCardProps {
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
+  id,
   title,
   description,
   price,
@@ -34,8 +36,18 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   duration,
   onClick
 }) => {
+  const navigate = useNavigate();
+  
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      navigate(`/book/${id}`);
+    }
+  };
+
   return (
-    <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 overflow-hidden" onClick={onClick}>
+    <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 overflow-hidden" onClick={handleClick}>
       <div className="relative">
         <img 
           src={image} 

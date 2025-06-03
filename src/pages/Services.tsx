@@ -1,0 +1,178 @@
+
+import React, { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Search, MapPin, Filter } from 'lucide-react';
+import ServiceCard from '@/components/ServiceCard';
+
+const Services = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const categories = [
+    'All Services',
+    'Beauty & Personal Care',
+    'Home Services',
+    'Technology & Repair',
+    'Events & Entertainment',
+    'Health & Wellness',
+    'Education & Training'
+  ];
+
+  // Mock services data
+  const services = [
+    {
+      id: '1',
+      title: 'Professional Hair Styling',
+      description: 'Expert hair styling for all occasions. Includes wash, cut, and styling with premium products.',
+      price: 12000,
+      provider: {
+        name: 'Sarah Beauty',
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sarah',
+        rating: 4.9,
+        reviews: 127,
+        verified: true,
+        location: 'Victoria Island'
+      },
+      image: `https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&h=300&fit=crop`,
+      category: 'Beauty & Personal Care',
+      duration: '1-2 hours'
+    },
+    {
+      id: '2',
+      title: 'Home Cleaning Service',
+      description: 'Professional deep cleaning for your home. All rooms, kitchen, and bathrooms included.',
+      price: 15000,
+      provider: {
+        name: 'Clean Masters',
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=clean',
+        rating: 4.7,
+        reviews: 89,
+        verified: true,
+        location: 'Ikeja'
+      },
+      image: `https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop`,
+      category: 'Home Services',
+      duration: '3-4 hours'
+    },
+    {
+      id: '3',
+      title: 'Laptop Repair & Maintenance',
+      description: 'Expert laptop repair services. Hardware fixes, software installation, and optimization.',
+      price: 8000,
+      provider: {
+        name: 'Tech Solutions',
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=tech',
+        rating: 4.8,
+        reviews: 156,
+        verified: true,
+        location: 'Surulere'
+      },
+      image: `https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400&h=300&fit=crop`,
+      category: 'Technology & Repair',
+      duration: '1-3 hours'
+    },
+    {
+      id: '4',
+      title: 'Event Photography',
+      description: 'Professional photography for weddings, birthdays, and corporate events.',
+      price: 25000,
+      provider: {
+        name: 'PhotoPro Studios',
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=photo',
+        rating: 4.9,
+        reviews: 203,
+        verified: true,
+        location: 'Lekki'
+      },
+      image: `https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=300&fit=crop`,
+      category: 'Events & Entertainment',
+      duration: 'Full day'
+    }
+  ];
+
+  const filteredServices = services.filter(service => {
+    const matchesSearch = service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         service.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || service.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Find Services</h1>
+          <p className="text-gray-600">Discover local service providers in your area</p>
+        </div>
+
+        {/* Search and Filters */}
+        <Card className="mb-8">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Input
+                  placeholder="Search for services..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-gray-400" />
+                <span className="text-sm text-gray-600">Lagos, Nigeria</span>
+              </div>
+              <Button variant="outline">
+                <Filter className="w-4 h-4 mr-2" />
+                Filters
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Categories */}
+        <div className="mb-8">
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <Badge
+                key={category}
+                variant={selectedCategory === (category === 'All Services' ? 'all' : category) ? 'default' : 'outline'}
+                className="cursor-pointer"
+                onClick={() => setSelectedCategory(category === 'All Services' ? 'all' : category)}
+              >
+                {category}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredServices.map((service) => (
+            <ServiceCard
+              key={service.id}
+              {...service}
+              onClick={() => {
+                // Navigate to service details or booking
+                console.log('Service clicked:', service.id);
+              }}
+            />
+          ))}
+        </div>
+
+        {filteredServices.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No services found matching your criteria.</p>
+            <p className="text-gray-400">Try adjusting your search or category filters.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Services;
