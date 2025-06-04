@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, Calendar, Star, DollarSign, Eye } from 'lucide-react';
+import { Plus, Calendar, Star, DollarSign, Eye, Settings, Users } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 const ProviderDashboard = () => {
@@ -44,6 +44,28 @@ const ProviderDashboard = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Provider Dashboard</h1>
           <p className="text-gray-600">Welcome back, {user?.name}!</p>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <Button asChild className="h-20">
+            <Link to="/provider/services/add" className="flex flex-col items-center justify-center">
+              <Plus className="w-6 h-6 mb-2" />
+              Add New Service
+            </Link>
+          </Button>
+          <Button asChild variant="outline" className="h-20">
+            <Link to="/provider/operations" className="flex flex-col items-center justify-center">
+              <Settings className="w-6 h-6 mb-2" />
+              Manage Operations
+            </Link>
+          </Button>
+          <Button asChild variant="outline" className="h-20">
+            <Link to="/provider/bookings" className="flex flex-col items-center justify-center">
+              <Users className="w-6 h-6 mb-2" />
+              View All Bookings
+            </Link>
+          </Button>
         </div>
 
         {/* Stats Grid */}
@@ -141,7 +163,7 @@ const ProviderDashboard = () => {
               <div className="flex items-center justify-between">
                 <CardTitle>Recent Bookings</CardTitle>
                 <Button variant="outline" size="sm" asChild>
-                  <Link to="/provider/bookings">View All</Link>
+                  <Link to="/provider/operations">View All</Link>
                 </Button>
               </div>
             </CardHeader>
