@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,38 +20,51 @@ import EnhancedAddService from "./pages/provider/EnhancedAddService";
 import EnhancedCustomerDashboard from "./pages/customer/EnhancedCustomerDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 
-const queryClient = new QueryClient();
+// Create QueryClient outside of component to avoid recreation on every render
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="system" storageKey="quip-ui-theme">
-      <TooltipProvider>
-        <AuthProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <div className="min-h-screen">
-              <Navigation />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/book/:serviceId" element={<EnhancedBookService />} />
-                <Route path="/provider/dashboard" element={<ProviderDashboard />} />
-                <Route path="/provider/operations" element={<ProviderOperations />} />
-                <Route path="/provider/services/add" element={<EnhancedAddService />} />
-                <Route path="/customer/dashboard" element={<EnhancedCustomerDashboard />} />
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>
-          </BrowserRouter>
-        </AuthProvider>
-      </TooltipProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
+const AppRoutes = () => (
+  <div className="min-h-screen">
+    <Navigation />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/book/:serviceId" element={<EnhancedBookService />} />
+      <Route path="/provider/dashboard" element={<ProviderDashboard />} />
+      <Route path="/provider/operations" element={<ProviderOperations />} />
+      <Route path="/provider/services/add" element={<EnhancedAddService />} />
+      <Route path="/customer/dashboard" element={<EnhancedCustomerDashboard />} />
+      <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </div>
 );
+
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="system" storageKey="quip-ui-theme">
+        <TooltipProvider>
+          <AuthProvider>
+            <BrowserRouter>
+              <AppRoutes />
+              <Toaster />
+              <Sonner />
+            </BrowserRouter>
+          </AuthProvider>
+        </TooltipProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
