@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Calendar, DollarSign, Settings, Shield, Workflow, Clock } from 'lucide-react';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import BookingManager from '@/components/booking/BookingManager';
 import AvailabilityCalendar from '@/components/provider/AvailabilityCalendar';
 import PricingTiers from '@/components/provider/PricingTiers';
@@ -12,12 +13,17 @@ import ServiceWorkflow from '@/components/services/ServiceWorkflow';
 const ProviderOperations = () => {
   const [activeTab, setActiveTab] = useState('bookings');
 
+  const breadcrumbItems = [
+    { label: 'Dashboard', href: '/provider/dashboard' },
+    { label: 'Operations' },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Provider Operations</h1>
-          <p className="text-gray-600">Manage your business operations and settings</p>
+    <DashboardLayout userType="provider" breadcrumbItems={breadcrumbItems}>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold">Provider Operations</h1>
+          <p className="text-muted-foreground">Manage your business operations and settings</p>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
@@ -74,13 +80,13 @@ const ProviderOperations = () => {
                 <CardTitle>Provider Settings</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">Provider settings panel coming soon...</p>
+                <p className="text-muted-foreground">Provider settings panel coming soon...</p>
               </CardContent>
             </Card>
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 
