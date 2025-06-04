@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MapPin, Search, Menu, User, Settings, LogOut, Plus } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import NotificationCenter from '@/components/notifications/NotificationCenter';
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -56,6 +57,9 @@ const Navigation = () => {
 
             {user ? (
               <div className="flex items-center space-x-2">
+                {/* Notifications */}
+                <NotificationCenter />
+                
                 {userType === 'provider' && (
                   <Button variant="outline" size="sm" onClick={() => navigate('/provider/services/add')}>
                     <Plus className="w-4 h-4 mr-1" />

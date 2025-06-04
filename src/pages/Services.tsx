@@ -6,10 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Search, MapPin, Filter } from 'lucide-react';
 import ServiceCard from '@/components/ServiceCard';
+import AdvancedSearch from '@/components/search/AdvancedSearch';
 
 const Services = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+  const [activeFilters, setActiveFilters] = useState<any>(null);
 
   const categories = [
     'All Services',
@@ -93,11 +96,48 @@ const Services = () => {
     }
   ];
 
+  const handleAdvancedSearch = (filters: any) => {
+    setActiveFilters(filters);
+    setShowAdvancedSearch(false);
+    console.log('Applied filters:', filters);
+  };
+
   const filteredServices = services.filter(service => {
-    const matchesSearch = service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         service.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || service.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    let matches = true;
+
+    // Basic search
+    if (searchTerm) {
+      matches = matches && (
+        service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        service.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Category filter
+    if (selectedCategory !== 'all') {
+      matches = matches && service.category === selectedCategory;
+    }
+
+    // Advanced filters
+    if (activeFilters) {
+      if (activeFilters.category && activeFilters.category !== service.category) {
+        matches = false;
+      }
+      if (activeFilters.priceRange) {
+        matches = matches && service.price >= activeFilters.priceRange[0] && service.price <= activeFilters.priceRange[1];
+      }
+      if (activeFilters.rating && service.provider.rating < activeFilters.rating) {
+        matches = false;
+      }
+      if (activeFilters.verified && !service.provider.verified) {
+        matches = false;
+      }
+      if (activeFilters.location && activeFilters.location !== service.provider.location) {
+        matches = false;
+      }
+    }
+
+    return matches;
   });
 
   return (
@@ -126,13 +166,55 @@ const Services = () => {
                 <MapPin className="w-4 h-4 text-gray-400" />
                 <span className="text-sm text-gray-600">Lagos, Nigeria</span>
               </div>
-              <Button variant="outline">
+              <Button 
+                variant="outline" 
+                onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
+              >
                 <Filter className="w-4 h-4 mr-2" />
-                Filters
+                Advanced Filters
               </Button>
             </div>
+
+            {/* Active Filters Display */}
+            {activeFilters && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="text-sm text-gray-600">Active filters:</span>
+                {activeFilters.category && (
+                  <Badge variant="secondary">Category: {activeFilters.category}</Badge>
+                )}
+                {activeFilters.priceRange && (
+                  <Badge variant="secondary">
+                    Price: ₦{activeFilters.priceRange[0].toLocaleString()} - ₦{activeFilters.priceRange[1].toLocaleString()}
+                  </Badge>
+                )}
+                {activeFilters.rating > 0 && (
+                  <Badge variant="secondary">Rating: {activeFilters.rating}+ stars</Badge>
+                )}
+                {activeFilters.verified && (
+                  <Badge variant="secondary">Verified only</Badge>
+                )}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setActiveFilters(null)}
+                  className="text-xs"
+                >
+                  Clear all
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
+
+        {/* Advanced Search Modal */}
+        {showAdvancedSearch && (
+          <div className="mb-8">
+            <AdvancedSearch
+              onSearch={handleAdvancedSearch}
+              onClose={() => setShowAdvancedSearch(false)}
+            />
+          </div>
+        )}
 
         {/* Categories */}
         <div className="mb-8">
@@ -148,6 +230,14 @@ const Services = () => {
               </Badge>
             ))}
           </div>
+        </div>
+
+        {/* Results Summary */}
+        <div className="mb-6">
+          <p className="text-gray-600">
+            Found {filteredServices.length} service{filteredServices.length !== 1 ? 's' : ''}
+            {activeFilters && ' matching your criteria'}
+          </p>
         </div>
 
         {/* Services Grid */}
@@ -168,6 +258,15 @@ const Services = () => {
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">No services found matching your criteria.</p>
             <p className="text-gray-400">Try adjusting your search or category filters.</p>
+            {activeFilters && (
+              <Button
+                variant="outline"
+                onClick={() => setActiveFilters(null)}
+                className="mt-4"
+              >
+                Clear all filters
+              </Button>
+            )}
           </div>
         )}
       </div>
