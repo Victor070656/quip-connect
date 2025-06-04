@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Plus, Calendar, Star, DollarSign, Eye, Settings, Users } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
 
 const ProviderDashboard = () => {
   const { user } = useAuth();
@@ -38,16 +39,20 @@ const ProviderDashboard = () => {
     }
   ];
 
+  const breadcrumbItems = [
+    { label: 'Dashboard' },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Provider Dashboard</h1>
-          <p className="text-gray-600">Welcome back, {user?.name}!</p>
+    <DashboardLayout userType="provider" breadcrumbItems={breadcrumbItems}>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold">Provider Dashboard</h1>
+          <p className="text-muted-foreground">Welcome back, {user?.name}!</p>
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Button asChild className="h-20">
             <Link to="/provider/services/add" className="flex flex-col items-center justify-center">
               <Plus className="w-6 h-6 mb-2" />
@@ -69,13 +74,13 @@ const ProviderDashboard = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Services</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.totalServices}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Total Services</p>
+                  <p className="text-2xl font-bold">{stats.totalServices}</p>
                 </div>
                 <Eye className="w-8 h-8 text-blue-600" />
               </div>
@@ -86,8 +91,8 @@ const ProviderDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Bookings</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.totalBookings}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Total Bookings</p>
+                  <p className="text-2xl font-bold">{stats.totalBookings}</p>
                 </div>
                 <Calendar className="w-8 h-8 text-green-600" />
               </div>
@@ -98,8 +103,8 @@ const ProviderDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Monthly Earnings</p>
-                  <p className="text-2xl font-bold text-gray-900">₦{stats.monthlyEarnings.toLocaleString()}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Monthly Earnings</p>
+                  <p className="text-2xl font-bold">₦{stats.monthlyEarnings.toLocaleString()}</p>
                 </div>
                 <DollarSign className="w-8 h-8 text-yellow-600" />
               </div>
@@ -110,8 +115,8 @@ const ProviderDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Average Rating</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.averageRating}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Average Rating</p>
+                  <p className="text-2xl font-bold">{stats.averageRating}</p>
                 </div>
                 <Star className="w-8 h-8 text-purple-600" />
               </div>
@@ -138,7 +143,7 @@ const ProviderDashboard = () => {
                 <div className="flex items-center justify-between p-4 border rounded-lg">
                   <div>
                     <h4 className="font-medium">Hair Styling</h4>
-                    <p className="text-sm text-gray-600">₦8,000 - ₦15,000</p>
+                    <p className="text-sm text-muted-foreground">₦8,000 - ₦15,000</p>
                   </div>
                   <Button variant="outline" size="sm" asChild>
                     <Link to="/provider/services/1">Edit</Link>
@@ -147,7 +152,7 @@ const ProviderDashboard = () => {
                 <div className="flex items-center justify-between p-4 border rounded-lg">
                   <div>
                     <h4 className="font-medium">Hair Washing</h4>
-                    <p className="text-sm text-gray-600">₦3,000 - ₦5,000</p>
+                    <p className="text-sm text-muted-foreground">₦3,000 - ₦5,000</p>
                   </div>
                   <Button variant="outline" size="sm" asChild>
                     <Link to="/provider/services/2">Edit</Link>
@@ -173,15 +178,15 @@ const ProviderDashboard = () => {
                   <div key={booking.id} className="flex items-center justify-between p-4 border rounded-lg">
                     <div>
                       <h4 className="font-medium">{booking.service}</h4>
-                      <p className="text-sm text-gray-600">{booking.customer}</p>
-                      <p className="text-sm text-gray-500">{booking.date} at {booking.time}</p>
+                      <p className="text-sm text-muted-foreground">{booking.customer}</p>
+                      <p className="text-sm text-muted-foreground">{booking.date} at {booking.time}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-medium">₦{booking.amount.toLocaleString()}</p>
                       <span className={`inline-block px-2 py-1 text-xs rounded-full ${
                         booking.status === 'confirmed' 
-                          ? 'bg-blue-100 text-blue-800' 
-                          : 'bg-green-100 text-green-800'
+                          ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' 
+                          : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                       }`}>
                         {booking.status}
                       </span>
@@ -193,7 +198,7 @@ const ProviderDashboard = () => {
           </Card>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

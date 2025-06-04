@@ -1,235 +1,120 @@
 
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, MapPin, Star, User, CreditCard } from 'lucide-react';
-import WalletCard from '@/components/wallet/WalletCard';
+import { Calendar, Star, Clock, MapPin, Bell } from 'lucide-react';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
 
 const EnhancedCustomerDashboard = () => {
-  const [activeTab, setActiveTab] = useState('bookings');
+  const breadcrumbItems = [
+    { label: 'Dashboard' },
+  ];
 
-  const bookings = [
+  const upcomingBookings = [
     {
       id: '1',
-      service: 'Professional Hair Styling',
-      provider: 'Sarah Beauty',
-      date: '2024-12-15',
-      time: '10:00 AM',
-      location: 'Victoria Island',
-      status: 'confirmed',
-      price: 12000,
-      image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&h=300&fit=crop'
+      service: 'Hair Styling',
+      provider: 'Beauty by Sarah',
+      date: '2025-06-06',
+      time: '2:00 PM',
+      location: 'Victoria Island, Lagos',
+      status: 'confirmed'
+    }
+  ];
+
+  const recentActivity = [
+    {
+      id: '1',
+      type: 'booking',
+      message: 'Booking confirmed for Hair Styling',
+      time: '2 hours ago'
     },
     {
       id: '2',
-      service: 'Home Cleaning Service',
-      provider: 'Clean Masters',
-      date: '2024-12-18',
-      time: '2:00 PM',
-      location: 'Ikoyi',
-      status: 'pending',
-      price: 8000,
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop'
+      type: 'review',
+      message: 'You left a review for Mike\'s Barber Shop',
+      time: '1 day ago'
     }
   ];
-
-  const pastBookings = [
-    {
-      id: '3',
-      service: 'Phone Repair',
-      provider: 'Tech Fix Pro',
-      date: '2024-11-28',
-      status: 'completed',
-      price: 15000,
-      rating: 5,
-      review: 'Excellent service! Fixed my phone perfectly.'
-    }
-  ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'confirmed': return 'bg-green-100 text-green-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'completed': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Customer Dashboard</h1>
-          <p className="text-gray-600">Manage your bookings and account</p>
+    <DashboardLayout userType="customer" breadcrumbItems={breadcrumbItems}>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold">Customer Dashboard</h1>
+          <p className="text-muted-foreground">Manage your bookings and discover new services</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <User className="w-6 h-6 text-blue-600" />
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Button asChild className="h-20">
+            <Link to="/services" className="flex flex-col items-center justify-center">
+              <MapPin className="w-6 h-6 mb-2" />
+              Find Services
+            </Link>
+          </Button>
+          <Button asChild variant="outline" className="h-20">
+            <Link to="/customer/bookings" className="flex flex-col items-center justify-center">
+              <Calendar className="w-6 h-6 mb-2" />
+              My Bookings
+            </Link>
+          </Button>
+          <Button asChild variant="outline" className="h-20">
+            <Link to="/customer/favorites" className="flex flex-col items-center justify-center">
+              <Star className="w-6 h-6 mb-2" />
+              Favorites
+            </Link>
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Upcoming Bookings */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Upcoming Bookings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {upcomingBookings.map((booking) => (
+                  <div key={booking.id} className="p-4 border rounded-lg">
+                    <h4 className="font-medium">{booking.service}</h4>
+                    <p className="text-sm text-muted-foreground">{booking.provider}</p>
+                    <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
+                      <span>{booking.date} at {booking.time}</span>
+                      <span>{booking.location}</span>
+                    </div>
+                    <span className="inline-block px-2 py-1 text-xs bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 rounded-full mt-2">
+                      {booking.status}
+                    </span>
                   </div>
-                  <div>
-                    <h3 className="font-medium">John Doe</h3>
-                    <p className="text-sm text-gray-500">john@example.com</p>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Recent Activity */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Activity</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {recentActivity.map((activity) => (
+                  <div key={activity.id} className="flex items-start gap-3 p-4 border rounded-lg">
+                    <Bell className="w-5 h-5 mt-0.5 text-blue-600" />
+                    <div>
+                      <p className="text-sm">{activity.message}</p>
+                      <p className="text-xs text-muted-foreground">{activity.time}</p>
+                    </div>
                   </div>
-                </div>
-                
-                <nav className="space-y-2">
-                  <button
-                    onClick={() => setActiveTab('bookings')}
-                    className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
-                      activeTab === 'bookings' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
-                    }`}
-                  >
-                    <Calendar className="w-4 h-4 inline mr-2" />
-                    My Bookings
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('wallet')}
-                    className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
-                      activeTab === 'wallet' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
-                    }`}
-                  >
-                    <CreditCard className="w-4 h-4 inline mr-2" />
-                    Wallet
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('history')}
-                    className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
-                      activeTab === 'history' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
-                    }`}
-                  >
-                    <Clock className="w-4 h-4 inline mr-2" />
-                    History
-                  </button>
-                </nav>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Main Content */}
-          <div className="lg:col-span-3">
-            {activeTab === 'bookings' && (
-              <div className="space-y-6">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-xl font-semibold">Upcoming Bookings</h2>
-                  <Button onClick={() => window.location.href = '/services'}>
-                    Book New Service
-                  </Button>
-                </div>
-                
-                <div className="space-y-4">
-                  {bookings.map((booking) => (
-                    <Card key={booking.id}>
-                      <CardContent className="p-6">
-                        <div className="flex gap-4">
-                          <img 
-                            src={booking.image}
-                            alt={booking.service}
-                            className="w-24 h-24 object-cover rounded-lg"
-                          />
-                          <div className="flex-1">
-                            <div className="flex justify-between items-start mb-2">
-                              <h3 className="font-semibold text-lg">{booking.service}</h3>
-                              <Badge className={getStatusColor(booking.status)}>
-                                {booking.status}
-                              </Badge>
-                            </div>
-                            <p className="text-gray-600 mb-2">by {booking.provider}</p>
-                            <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
-                              <div className="flex items-center">
-                                <Calendar className="w-4 h-4 mr-1" />
-                                {booking.date}
-                              </div>
-                              <div className="flex items-center">
-                                <Clock className="w-4 h-4 mr-1" />
-                                {booking.time}
-                              </div>
-                              <div className="flex items-center">
-                                <MapPin className="w-4 h-4 mr-1" />
-                                {booking.location}
-                              </div>
-                            </div>
-                            <div className="flex justify-between items-center">
-                              <span className="text-lg font-bold text-blue-600">
-                                ₦{booking.price.toLocaleString()}
-                              </span>
-                              <div className="space-x-2">
-                                <Button variant="outline" size="sm">
-                                  Reschedule
-                                </Button>
-                                <Button variant="outline" size="sm">
-                                  Cancel
-                                </Button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                ))}
               </div>
-            )}
-
-            {activeTab === 'wallet' && (
-              <WalletCard />
-            )}
-
-            {activeTab === 'history' && (
-              <div className="space-y-6">
-                <h2 className="text-xl font-semibold">Booking History</h2>
-                
-                <div className="space-y-4">
-                  {pastBookings.map((booking) => (
-                    <Card key={booking.id}>
-                      <CardContent className="p-6">
-                        <div className="flex justify-between items-start mb-4">
-                          <div>
-                            <h3 className="font-semibold text-lg">{booking.service}</h3>
-                            <p className="text-gray-600">by {booking.provider}</p>
-                            <p className="text-sm text-gray-500">{booking.date}</p>
-                          </div>
-                          <div className="text-right">
-                            <Badge className={getStatusColor(booking.status)}>
-                              {booking.status}
-                            </Badge>
-                            <p className="text-lg font-bold text-blue-600 mt-1">
-                              ₦{booking.price.toLocaleString()}
-                            </p>
-                          </div>
-                        </div>
-                        
-                        {booking.rating && (
-                          <div className="border-t pt-4">
-                            <div className="flex items-center space-x-2 mb-2">
-                              <span className="text-sm font-medium">Your Rating:</span>
-                              <div className="flex">
-                                {[...Array(booking.rating)].map((_, i) => (
-                                  <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                                ))}
-                              </div>
-                            </div>
-                            {booking.review && (
-                              <p className="text-sm text-gray-600 italic">"{booking.review}"</p>
-                            )}
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 
