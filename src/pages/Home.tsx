@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -5,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Search, MapPin, Star, Verified, ArrowRight } from 'lucide-react';
 import ServiceCard from '@/components/ServiceCard';
 import MobileServiceGrid from '@/components/services/MobileServiceGrid';
+import ServiceRecommendations from '@/components/recommendations/ServiceRecommendations';
 import LocationPicker from '@/components/location/LocationPicker';
 import { useNavigate } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -145,6 +147,13 @@ const Home = () => {
               </div>
             )}
           </div>
+        </div>
+      </section>
+
+      {/* Service Recommendations - New Section */}
+      <section className="py-12 md:py-16 bg-card">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ServiceRecommendations userId="current-user" limit={3} />
         </div>
       </section>
 

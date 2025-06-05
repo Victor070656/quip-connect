@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Calendar, DollarSign, Settings, Shield, Workflow, Clock, BarChart3, Users } from 'lucide-react';
+import { Calendar, DollarSign, Settings, Shield, Workflow, Clock, BarChart3, Users, Zap } from 'lucide-react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import BookingManager from '@/components/booking/BookingManager';
 import AvailabilityCalendar from '@/components/provider/AvailabilityCalendar';
@@ -12,6 +11,7 @@ import ServiceWorkflow from '@/components/services/ServiceWorkflow';
 import ProviderAnalytics from '@/components/analytics/ProviderAnalytics';
 import EarningsInsights from '@/components/analytics/EarningsInsights';
 import CustomerInsights from '@/components/analytics/CustomerInsights';
+import ExternalServicesHub from '@/components/integrations/ExternalServicesHub';
 
 const ProviderOperations = () => {
   const [activeTab, setActiveTab] = useState('bookings');
@@ -30,7 +30,7 @@ const ProviderOperations = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8">
+          <TabsList className="grid w-full grid-cols-9">
             <TabsTrigger value="bookings" className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               Bookings
@@ -58,6 +58,10 @@ const ProviderOperations = () => {
             <TabsTrigger value="customers" className="flex items-center gap-2">
               <Users className="w-4 h-4" />
               Customers
+            </TabsTrigger>
+            <TabsTrigger value="integrations" className="flex items-center gap-2">
+              <Zap className="w-4 h-4" />
+              Integrations
             </TabsTrigger>
             <TabsTrigger value="verification" className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
@@ -91,6 +95,10 @@ const ProviderOperations = () => {
 
           <TabsContent value="customers" className="space-y-6">
             <CustomerInsights />
+          </TabsContent>
+
+          <TabsContent value="integrations" className="space-y-6">
+            <ExternalServicesHub />
           </TabsContent>
 
           <TabsContent value="verification" className="space-y-6">
