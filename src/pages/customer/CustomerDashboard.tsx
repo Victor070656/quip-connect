@@ -60,11 +60,11 @@ const CustomerDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-background py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Dashboard</h1>
-          <p className="text-gray-600">Welcome back, {user?.name}!</p>
+          <h1 className="text-3xl font-bold text-foreground">My Dashboard</h1>
+          <p className="text-muted-foreground">Welcome back, {user?.name}!</p>
         </div>
 
         {/* Quick Actions */}
@@ -95,8 +95,8 @@ const CustomerDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Bookings</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.totalBookings}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Total Bookings</p>
+                  <p className="text-2xl font-bold text-foreground">{stats.totalBookings}</p>
                 </div>
                 <Calendar className="w-8 h-8 text-blue-600" />
               </div>
@@ -107,8 +107,8 @@ const CustomerDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Upcoming</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.upcomingBookings}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Upcoming</p>
+                  <p className="text-2xl font-bold text-foreground">{stats.upcomingBookings}</p>
                 </div>
                 <Clock className="w-8 h-8 text-green-600" />
               </div>
@@ -119,8 +119,8 @@ const CustomerDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Completed</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.completedServices}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Completed</p>
+                  <p className="text-2xl font-bold text-foreground">{stats.completedServices}</p>
                 </div>
                 <Star className="w-8 h-8 text-yellow-600" />
               </div>
@@ -131,8 +131,8 @@ const CustomerDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Favorites</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.favoriteProviders}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Favorites</p>
+                  <p className="text-2xl font-bold text-foreground">{stats.favoriteProviders}</p>
                 </div>
                 <Star className="w-8 h-8 text-purple-600" />
               </div>
@@ -154,17 +154,17 @@ const CustomerDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {upcomingBookings.map((booking) => (
-                  <div key={booking.id} className="p-4 border rounded-lg">
+                  <div key={booking.id} className="p-4 border border-border rounded-lg">
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium">{booking.service}</h4>
-                      <span className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                      <h4 className="font-medium text-foreground">{booking.service}</h4>
+                      <span className="text-sm bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full">
                         {booking.status}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600">{booking.provider}</p>
-                    <p className="text-sm text-gray-500">{booking.date} at {booking.time}</p>
-                    <p className="text-sm text-gray-500">{booking.location}</p>
-                    <p className="text-sm font-medium mt-2">₦{booking.amount.toLocaleString()}</p>
+                    <p className="text-sm text-muted-foreground">{booking.provider}</p>
+                    <p className="text-sm text-muted-foreground">{booking.date} at {booking.time}</p>
+                    <p className="text-sm text-muted-foreground">{booking.location}</p>
+                    <p className="text-sm font-medium mt-2 text-foreground">₦{booking.amount.toLocaleString()}</p>
                   </div>
                 ))}
               </div>
@@ -179,17 +179,17 @@ const CustomerDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {recentActivity.map((activity) => (
-                  <div key={activity.id} className="p-4 border rounded-lg">
+                  <div key={activity.id} className="p-4 border border-border rounded-lg">
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium">{activity.service}</h4>
-                      <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                      <h4 className="font-medium text-foreground">{activity.service}</h4>
+                      <span className="text-sm bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 px-2 py-1 rounded-full">
                         {activity.status}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600">{activity.provider}</p>
-                    <p className="text-sm text-gray-500">{activity.date}</p>
+                    <p className="text-sm text-muted-foreground">{activity.provider}</p>
+                    <p className="text-sm text-muted-foreground">{activity.date}</p>
                     <div className="flex items-center mt-2">
-                      <span className="text-sm text-gray-600 mr-2">Your rating:</span>
+                      <span className="text-sm text-muted-foreground mr-2">Your rating:</span>
                       <div className="flex">
                         {[...Array(5)].map((_, i) => (
                           <Star
@@ -197,7 +197,7 @@ const CustomerDashboard = () => {
                             className={`w-4 h-4 ${
                               i < activity.rating 
                                 ? 'text-yellow-400 fill-current' 
-                                : 'text-gray-300'
+                                : 'text-muted-foreground'
                             }`}
                           />
                         ))}

@@ -43,7 +43,7 @@ const Navigation = () => {
               <input
                 type="text"
                 placeholder="Search services..."
-                className="w-full pl-10 pr-4 py-2 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-ring focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
               />
             </div>
           </div>
@@ -76,7 +76,7 @@ const Navigation = () => {
                     <Button variant="ghost" size="sm" className="p-2">
                       <Avatar className="w-8 h-8">
                         <AvatarImage src={user.avatar} />
-                        <AvatarFallback>{user.name?.[0] || 'U'}</AvatarFallback>
+                        <AvatarFallback className="bg-muted text-muted-foreground">{user.name?.[0] || 'U'}</AvatarFallback>
                       </Avatar>
                     </Button>
                   </DropdownMenuTrigger>
