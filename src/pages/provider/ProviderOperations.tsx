@@ -2,13 +2,16 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Calendar, DollarSign, Settings, Shield, Workflow, Clock } from 'lucide-react';
+import { Calendar, DollarSign, Settings, Shield, Workflow, Clock, BarChart3, Users } from 'lucide-react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import BookingManager from '@/components/booking/BookingManager';
 import AvailabilityCalendar from '@/components/provider/AvailabilityCalendar';
 import PricingTiers from '@/components/provider/PricingTiers';
 import VerificationSystem from '@/components/provider/VerificationSystem';
 import ServiceWorkflow from '@/components/services/ServiceWorkflow';
+import ProviderAnalytics from '@/components/analytics/ProviderAnalytics';
+import EarningsInsights from '@/components/analytics/EarningsInsights';
+import CustomerInsights from '@/components/analytics/CustomerInsights';
 
 const ProviderOperations = () => {
   const [activeTab, setActiveTab] = useState('bookings');
@@ -27,7 +30,7 @@ const ProviderOperations = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-8">
             <TabsTrigger value="bookings" className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               Bookings
@@ -44,13 +47,21 @@ const ProviderOperations = () => {
               <Workflow className="w-4 h-4" />
               Workflow
             </TabsTrigger>
+            <TabsTrigger value="analytics" className="flex items-center gap-2">
+              <BarChart3 className="w-4 h-4" />
+              Analytics
+            </TabsTrigger>
+            <TabsTrigger value="earnings" className="flex items-center gap-2">
+              <DollarSign className="w-4 h-4" />
+              Earnings
+            </TabsTrigger>
+            <TabsTrigger value="customers" className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              Customers
+            </TabsTrigger>
             <TabsTrigger value="verification" className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
               Verification
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
-              <Settings className="w-4 h-4" />
-              Settings
             </TabsTrigger>
           </TabsList>
 
@@ -70,19 +81,20 @@ const ProviderOperations = () => {
             <ServiceWorkflow serviceId="service-1" userType="provider" />
           </TabsContent>
 
-          <TabsContent value="verification" className="space-y-6">
-            <VerificationSystem />
+          <TabsContent value="analytics" className="space-y-6">
+            <ProviderAnalytics />
           </TabsContent>
 
-          <TabsContent value="settings" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Provider Settings</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Provider settings panel coming soon...</p>
-              </CardContent>
-            </Card>
+          <TabsContent value="earnings" className="space-y-6">
+            <EarningsInsights />
+          </TabsContent>
+
+          <TabsContent value="customers" className="space-y-6">
+            <CustomerInsights />
+          </TabsContent>
+
+          <TabsContent value="verification" className="space-y-6">
+            <VerificationSystem />
           </TabsContent>
         </Tabs>
       </div>

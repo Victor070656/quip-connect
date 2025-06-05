@@ -12,13 +12,16 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MapPin, Search, User, Settings, LogOut, Plus } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from '@/hooks/useTranslation';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import NotificationCenter from '@/components/notifications/NotificationCenter';
+import LanguageSelector from '@/components/language/LanguageSelector';
 import MobileNavigation from './MobileNavigation';
 
 const Navigation = () => {
   const navigate = useNavigate();
   const { user, logout, userType } = useAuth();
+  const { t } = useTranslation();
 
   const handleLogout = () => {
     logout();
@@ -48,7 +51,7 @@ const Navigation = () => {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                 <input
                   type="text"
-                  placeholder="Search services..."
+                  placeholder={t('common.search')}
                   className="w-full pl-10 pr-4 py-2 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
                 />
               </div>
@@ -59,8 +62,11 @@ const Navigation = () => {
               {/* Location */}
               <div className="hidden sm:flex items-center space-x-1 text-muted-foreground">
                 <MapPin className="w-4 h-4" />
-                <span className="text-sm">Lagos, NG</span>
+                <span className="text-sm">{t('common.location')}</span>
               </div>
+
+              {/* Language Selector */}
+              <LanguageSelector />
 
               {/* Theme Toggle */}
               <ThemeToggle />
@@ -89,7 +95,7 @@ const Navigation = () => {
                     <DropdownMenuContent align="end" className="w-56">
                       <DropdownMenuItem onClick={() => navigate(`/${userType}/dashboard`)}>
                         <User className="w-4 h-4 mr-2" />
-                        Dashboard
+                        {t('dashboard.overview')}
                       </DropdownMenuItem>
                       {/* Admin access - in real app this would be role-based */}
                       {user.email === 'admin@quip.com' && (
@@ -100,7 +106,7 @@ const Navigation = () => {
                       )}
                       <DropdownMenuItem onClick={() => navigate(`/${userType}/profile`)}>
                         <Settings className="w-4 h-4 mr-2" />
-                        Profile Settings
+                        {t('dashboard.settings')}
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={handleLogout}>
@@ -113,10 +119,10 @@ const Navigation = () => {
               ) : (
                 <div className="flex items-center space-x-2">
                   <Button variant="ghost" size="sm" onClick={() => navigate('/login')}>
-                    Sign In
+                    {t('common.login')}
                   </Button>
                   <Button size="sm" onClick={() => navigate('/register')}>
-                    Get Started
+                    {t('common.register')}
                   </Button>
                 </div>
               )}

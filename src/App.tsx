@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { TranslationProvider } from "@/hooks/useTranslation";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import Navigation from "@/components/Layout/Navigation";
 import Home from "./pages/Home";
@@ -54,13 +55,15 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="quip-ui-theme">
         <TooltipProvider>
-          <AuthProvider>
-            <BrowserRouter>
-              <AppRoutes />
-              <Toaster />
-              <Sonner />
-            </BrowserRouter>
-          </AuthProvider>
+          <TranslationProvider>
+            <AuthProvider>
+              <BrowserRouter>
+                <AppRoutes />
+                <Toaster />
+                <Sonner />
+              </BrowserRouter>
+            </AuthProvider>
+          </TranslationProvider>
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
