@@ -6,13 +6,19 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Search, MapPin, Filter } from 'lucide-react';
 import ServiceCard from '@/components/ServiceCard';
+import MobileServiceGrid from '@/components/services/MobileServiceGrid';
+import LocationPicker from '@/components/location/LocationPicker';
 import AdvancedSearch from '@/components/search/AdvancedSearch';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Services = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+  const [showLocationPicker, setShowLocationPicker] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState('Lagos, Nigeria');
   const [activeFilters, setActiveFilters] = useState<any>(null);
+  const isMobile = useIsMobile();
 
   const categories = [
     'All Services',
@@ -102,6 +108,15 @@ const Services = () => {
     console.log('Applied filters:', filters);
   };
 
+  const handleLocationSelect = (location: { name: string; latitude?: number; longitude?: number }) => {
+    setSelectedLocation(location.name);
+    setShowLocationPicker(false);
+  };
+
+  const handleServiceClick = (serviceId: string) => {
+    console.log('Service clicked:', serviceId);
+  };
+
   const filteredServices = services.filter(service => {
     let matches = true;
 
@@ -141,20 +156,21 @@ const Services = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-background py-4 md:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Find Services</h1>
-          <p className="text-gray-600">Discover local service providers in your area</p>
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Find Services</h1>
+          <p className="text-muted-foreground">Discover local service providers in your area</p>
         </div>
 
         {/* Search and Filters */}
-        <Card className="mb-8">
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+        <Card className="mb-6 md:mb-8">
+          <CardContent className="p-4 md:p-6">
+            <div className="space-y-4">
+              {/* Search Input */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                 <Input
                   placeholder="Search for services..."
                   value={searchTerm}
@@ -162,53 +178,72 @@ const Services = () => {
                   className="pl-10"
                 />
               </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-gray-400" />
-                <span className="text-sm text-gray-600">Lagos, Nigeria</span>
-              </div>
-              <Button 
-                variant="outline" 
-                onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
-              >
-                <Filter className="w-4 h-4 mr-2" />
-                Advanced Filters
-              </Button>
-            </div>
 
-            {/* Active Filters Display */}
-            {activeFilters && (
-              <div className="mt-4 flex flex-wrap gap-2">
-                <span className="text-sm text-gray-600">Active filters:</span>
-                {activeFilters.category && (
-                  <Badge variant="secondary">Category: {activeFilters.category}</Badge>
-                )}
-                {activeFilters.priceRange && (
-                  <Badge variant="secondary">
-                    Price: ₦{activeFilters.priceRange[0].toLocaleString()} - ₦{activeFilters.priceRange[1].toLocaleString()}
-                  </Badge>
-                )}
-                {activeFilters.rating > 0 && (
-                  <Badge variant="secondary">Rating: {activeFilters.rating}+ stars</Badge>
-                )}
-                {activeFilters.verified && (
-                  <Badge variant="secondary">Verified only</Badge>
-                )}
+              {/* Location and Filters */}
+              <div className="flex flex-col sm:flex-row gap-3">
                 <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setActiveFilters(null)}
-                  className="text-xs"
+                  variant="outline"
+                  onClick={() => setShowLocationPicker(!showLocationPicker)}
+                  className="flex-1 justify-start"
                 >
-                  Clear all
+                  <MapPin className="w-4 h-4 mr-2" />
+                  {selectedLocation}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
+                  className="flex-1 sm:flex-none"
+                >
+                  <Filter className="w-4 h-4 mr-2" />
+                  {isMobile ? 'Filters' : 'Advanced Filters'}
                 </Button>
               </div>
-            )}
+
+              {/* Location Picker */}
+              {showLocationPicker && (
+                <div className="mt-4">
+                  <LocationPicker
+                    onLocationSelect={handleLocationSelect}
+                    selectedLocation={selectedLocation}
+                  />
+                </div>
+              )}
+
+              {/* Active Filters Display */}
+              {activeFilters && (
+                <div className="flex flex-wrap gap-2">
+                  <span className="text-sm text-muted-foreground">Active filters:</span>
+                  {activeFilters.category && (
+                    <Badge variant="secondary">Category: {activeFilters.category}</Badge>
+                  )}
+                  {activeFilters.priceRange && (
+                    <Badge variant="secondary">
+                      Price: ₦{activeFilters.priceRange[0].toLocaleString()} - ₦{activeFilters.priceRange[1].toLocaleString()}
+                    </Badge>
+                  )}
+                  {activeFilters.rating > 0 && (
+                    <Badge variant="secondary">Rating: {activeFilters.rating}+ stars</Badge>
+                  )}
+                  {activeFilters.verified && (
+                    <Badge variant="secondary">Verified only</Badge>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setActiveFilters(null)}
+                    className="text-xs"
+                  >
+                    Clear all
+                  </Button>
+                </div>
+              )}
+            </div>
           </CardContent>
         </Card>
 
         {/* Advanced Search Modal */}
         {showAdvancedSearch && (
-          <div className="mb-8">
+          <div className="mb-6 md:mb-8">
             <AdvancedSearch
               onSearch={handleAdvancedSearch}
               onClose={() => setShowAdvancedSearch(false)}
@@ -217,7 +252,7 @@ const Services = () => {
         )}
 
         {/* Categories */}
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <Badge
@@ -233,31 +268,35 @@ const Services = () => {
         </div>
 
         {/* Results Summary */}
-        <div className="mb-6">
-          <p className="text-gray-600">
+        <div className="mb-4 md:mb-6">
+          <p className="text-muted-foreground">
             Found {filteredServices.length} service{filteredServices.length !== 1 ? 's' : ''}
             {activeFilters && ' matching your criteria'}
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredServices.map((service) => (
-            <ServiceCard
-              key={service.id}
-              {...service}
-              onClick={() => {
-                // Navigate to service details or booking
-                console.log('Service clicked:', service.id);
-              }}
-            />
-          ))}
-        </div>
+        {isMobile ? (
+          <MobileServiceGrid 
+            services={filteredServices}
+            onServiceClick={handleServiceClick}
+          />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredServices.map((service) => (
+              <ServiceCard
+                key={service.id}
+                {...service}
+                onClick={() => handleServiceClick(service.id)}
+              />
+            ))}
+          </div>
+        )}
 
         {filteredServices.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No services found matching your criteria.</p>
-            <p className="text-gray-400">Try adjusting your search or category filters.</p>
+            <p className="text-muted-foreground text-lg">No services found matching your criteria.</p>
+            <p className="text-muted-foreground">Try adjusting your search or category filters.</p>
             {activeFilters && (
               <Button
                 variant="outline"
