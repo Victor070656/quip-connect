@@ -15,11 +15,13 @@ import Register from "./pages/auth/Register";
 import Services from "./pages/Services";
 import ProviderDashboard from "@/pages/provider/ProviderDashboard";
 import ProviderOperations from "@/pages/provider/ProviderOperations";
+import ProviderGrowth from "@/pages/provider/ProviderGrowth";
 import NotFound from "./pages/NotFound";
 import EnhancedBookService from "./pages/EnhancedBookService";
 import EnhancedAddService from "./pages/provider/EnhancedAddService";
 import EnhancedCustomerDashboard from "./pages/customer/EnhancedCustomerDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import BusinessGrowth from "./pages/admin/BusinessGrowth";
 
 // Create QueryClient outside of component to avoid recreation on every render
 const queryClient = new QueryClient({
@@ -42,9 +44,11 @@ const AppRoutes = () => (
       <Route path="/book/:serviceId" element={<EnhancedBookService />} />
       <Route path="/provider/dashboard" element={<ProviderDashboard />} />
       <Route path="/provider/operations" element={<ProviderOperations />} />
+      <Route path="/provider/growth" element={<ProviderGrowth />} />
       <Route path="/provider/services/add" element={<EnhancedAddService />} />
       <Route path="/customer/dashboard" element={<EnhancedCustomerDashboard />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      <Route path="/admin/business-growth" element={<BusinessGrowth />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </div>
