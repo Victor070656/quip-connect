@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -22,7 +21,7 @@ const ProviderProfile = ({ providerId }: ProviderProfileProps) => {
     name: 'Sarah Beauty',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sarah',
     rating: 4.9,
-    reviews: 127,
+    reviewCount: 127,
     verified: true,
     location: 'Victoria Island, Lagos',
     bio: 'Professional hair stylist with 8+ years of experience in modern styling techniques. Specialized in bridal makeup and hair styling.',
@@ -96,7 +95,7 @@ const ProviderProfile = ({ providerId }: ProviderProfileProps) => {
                   <Star className="w-5 h-5 text-yellow-400 fill-current" />
                   <span className="font-semibold ml-1">{provider.rating}</span>
                 </div>
-                <span className="text-muted-foreground">({provider.reviews.length} reviews)</span>
+                <span className="text-muted-foreground">({provider.reviewCount} reviews)</span>
               </div>
               
               <div className="flex items-center justify-center md:justify-start gap-1 mb-4 text-muted-foreground">
