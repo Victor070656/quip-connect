@@ -1,57 +1,70 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Bell, X, Check, Calendar, MessageCircle, Star, DollarSign } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
+import { Bell, Check, X, Clock, Calendar, DollarSign, MessageSquare, Star } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface Notification {
   id: string;
-  type: 'booking' | 'message' | 'payment' | 'review' | 'system';
+  type: 'booking' | 'payment' | 'message' | 'review' | 'system';
   title: string;
-  description: string;
+  message: string;
   timestamp: string;
   read: boolean;
-  actionUrl?: string;
+  actionRequired?: boolean;
+  data?: any;
 }
 
 const NotificationCenter = () => {
-  const { user } = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
+  const { toast } = useToast();
   const [notifications, setNotifications] = useState<Notification[]>([
     {
       id: '1',
       type: 'booking',
       title: 'New Booking Request',
-      description: 'Sarah Johnson has booked your Hair Styling service for June 5th',
-      timestamp: '2024-06-04T10:30:00Z',
+      message: 'John Doe has requested a house cleaning service for tomorrow at 2 PM',
+      timestamp: '2024-01-15T10:30:00Z',
       read: false,
-      actionUrl: '/provider/bookings/1'
+      actionRequired: true,
+      data: { bookingId: 'booking-1', customerId: 'customer-1' }
     },
     {
       id: '2',
-      type: 'message',
-      title: 'New Message',
-      description: 'You have a new message from Mike Adams',
-      timestamp: '2024-06-04T09:15:00Z',
-      read: false
+      type: 'payment',
+      title: 'Payment Received',
+      message: 'You received ₦15,000 for cleaning service completed on Jan 14',
+      timestamp: '2024-01-15T09:15:00Z',
+      read: false,
+      data: { amount: 15000, bookingId: 'booking-2' }
     },
     {
       id: '3',
-      type: 'payment',
-      title: 'Payment Received',
-      description: 'You received ₦8,000 for completed service',
-      timestamp: '2024-06-03T16:45:00Z',
-      read: true
+      type: 'message',
+      title: 'New Message',
+      message: 'Sarah Johnson sent you a message about the upcoming appointment',
+      timestamp: '2024-01-15T08:45:00Z',
+      read: true,
+      data: { messageId: 'msg-1', senderId: 'provider-1' }
     },
     {
       id: '4',
       type: 'review',
       title: 'New Review',
-      description: 'You received a 5-star review from Emma Wilson',
-      timestamp: '2024-06-03T14:20:00Z',
-      read: true
+      message: 'Mary Smith left a 5-star review for your recent service',
+      timestamp: '2024-01-14T16:20:00Z',
+      read: true,
+      data: { reviewId: 'review-1', rating: 5 }
+    },
+    {
+      id: '5',
+      type: 'system',
+      title: 'Profile Verification',
+      message: 'Your profile verification is complete! You can now receive more bookings',
+      timestamp: '2024-01-14T14:10:00Z',
+      read: false,
+      data: { verificationType: 'identity' }
     }
   ]);
 
@@ -59,132 +72,240 @@ const NotificationCenter = () => {
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
-      case 'booking': return <Calendar className="w-4 h-4 text-blue-600" />;
-      case 'message': return <MessageCircle className="w-4 h-4 text-green-600" />;
-      case 'payment': return <DollarSign className="w-4 h-4 text-yellow-600" />;
-      case 'review': return <Star className="w-4 h-4 text-purple-600" />;
-      default: return <Bell className="w-4 h-4 text-gray-600" />;
+      case 'booking':
+        return Calendar;
+      case 'payment':
+        return DollarSign;
+      case 'message':
+        return MessageSquare;
+      case 'review':
+        return Star;
+      case 'system':
+        return Bell;
+      default:
+        return Bell;
+    }
+  };
+
+  const getNotificationColor = (type: string) => {
+    switch (type) {
+      case 'booking':
+        return 'text-blue-600';
+      case 'payment':
+        return 'text-green-600';
+      case 'message':
+        return 'text-purple-600';
+      case 'review':
+        return 'text-yellow-600';
+      case 'system':
+        return 'text-gray-600';
+      default:
+        return 'text-gray-600';
+    }
+  };
+
+  const formatTimestamp = (timestamp: string) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+
+    if (minutes < 60) {
+      return `${minutes}m ago`;
+    } else if (hours < 24) {
+      return `${hours}h ago`;
+    } else {
+      return `${days}d ago`;
     }
   };
 
   const markAsRead = (id: string) => {
-    setNotifications(prev => prev.map(n => 
-      n.id === id ? { ...n, read: true } : n
-    ));
+    setNotifications(prev => 
+      prev.map(notification => 
+        notification.id === id ? { ...notification, read: true } : notification
+      )
+    );
   };
 
   const markAllAsRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+    setNotifications(prev => 
+      prev.map(notification => ({ ...notification, read: true }))
+    );
+    toast({
+      title: "All notifications marked as read",
+      description: "Your notification center has been updated.",
+    });
+  };
+
+  const handleNotificationAction = (notification: Notification, action: string) => {
+    switch (action) {
+      case 'accept':
+        toast({
+          title: "Booking Accepted",
+          description: "The booking request has been accepted.",
+        });
+        break;
+      case 'decline':
+        toast({
+          title: "Booking Declined",
+          description: "The booking request has been declined.",
+        });
+        break;
+      case 'view':
+        toast({
+          title: "Redirecting",
+          description: "Opening the relevant page...",
+        });
+        break;
+    }
+    markAsRead(notification.id);
   };
 
   const deleteNotification = (id: string) => {
     setNotifications(prev => prev.filter(n => n.id !== id));
   };
 
-  const formatTime = (timestamp: string) => {
-    const now = new Date();
-    const time = new Date(timestamp);
-    const diffInHours = Math.floor((now.getTime() - time.getTime()) / (1000 * 60 * 60));
-    
-    if (diffInHours < 1) return 'Just now';
-    if (diffInHours < 24) return `${diffInHours}h ago`;
-    return time.toLocaleDateString();
-  };
+  // Simulate real-time notifications
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Math.random() > 0.8) { // 20% chance every 10 seconds
+        const newNotification: Notification = {
+          id: `notif-${Date.now()}`,
+          type: 'message',
+          title: 'New Message',
+          message: 'You have received a new message from a customer',
+          timestamp: new Date().toISOString(),
+          read: false
+        };
+        setNotifications(prev => [newNotification, ...prev]);
+        toast({
+          title: "New Notification",
+          description: newNotification.message,
+        });
+      }
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [toast]);
 
   return (
-    <div className="relative">
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative"
-      >
-        <Bell className="w-5 h-5" />
-        {unreadCount > 0 && (
-          <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 flex items-center justify-center bg-red-500 text-xs">
-            {unreadCount}
-          </Badge>
-        )}
-      </Button>
-
-      {isOpen && (
-        <Card className="absolute right-0 top-12 w-96 max-h-96 z-50 shadow-xl">
-          <CardHeader className="border-b p-4">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Notifications</CardTitle>
-              <div className="flex items-center space-x-2">
-                {unreadCount > 0 && (
-                  <Button variant="ghost" size="sm" onClick={markAllAsRead}>
-                    <Check className="w-4 h-4 mr-1" />
-                    Mark all read
-                  </Button>
-                )}
-                <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)}>
-                  <X className="w-4 h-4" />
-                </Button>
-              </div>
+    <Card className="w-full max-w-2xl">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <CardTitle className="flex items-center gap-2">
+            <Bell className="w-5 h-5" />
+            Notifications
+            {unreadCount > 0 && (
+              <Badge variant="destructive" className="ml-2">
+                {unreadCount}
+              </Badge>
+            )}
+          </CardTitle>
+          {unreadCount > 0 && (
+            <Button variant="outline" size="sm" onClick={markAllAsRead}>
+              <Check className="w-4 h-4 mr-2" />
+              Mark All Read
+            </Button>
+          )}
+        </div>
+      </CardHeader>
+      <CardContent className="p-0">
+        <div className="max-h-96 overflow-y-auto">
+          {notifications.length === 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              <Bell className="w-12 h-12 mx-auto mb-4 opacity-50" />
+              <p>No notifications yet</p>
             </div>
-          </CardHeader>
-          
-          <CardContent className="p-0">
-            <div className="max-h-80 overflow-y-auto">
-              {notifications.length > 0 ? (
-                notifications.map((notification) => (
+          ) : (
+            <div className="space-y-1">
+              {notifications.map((notification) => {
+                const Icon = getNotificationIcon(notification.type);
+                const iconColor = getNotificationColor(notification.type);
+                
+                return (
                   <div
                     key={notification.id}
-                    className={`p-4 border-b hover:bg-gray-50 cursor-pointer ${
-                      !notification.read ? 'bg-blue-50' : ''
+                    className={`p-4 border-b hover:bg-muted/50 transition-colors ${
+                      !notification.read ? 'bg-blue-50/50' : ''
                     }`}
-                    onClick={() => markAsRead(notification.id)}
                   >
-                    <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0 mt-1">
-                        {getNotificationIcon(notification.type)}
+                    <div className="flex items-start gap-3">
+                      <div className={`p-2 rounded-full bg-muted ${iconColor}`}>
+                        <Icon className="w-4 h-4" />
                       </div>
+                      
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between">
-                          <div>
-                            <p className="text-sm font-medium text-gray-900">
+                          <div className="flex-1">
+                            <h4 className={`text-sm font-medium ${!notification.read ? 'font-semibold' : ''}`}>
                               {notification.title}
+                            </h4>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              {notification.message}
                             </p>
-                            <p className="text-sm text-gray-600 mt-1">
-                              {notification.description}
-                            </p>
-                            <p className="text-xs text-gray-500 mt-2">
-                              {formatTime(notification.timestamp)}
-                            </p>
+                            <div className="flex items-center gap-2 mt-2">
+                              <Clock className="w-3 h-3 text-muted-foreground" />
+                              <span className="text-xs text-muted-foreground">
+                                {formatTimestamp(notification.timestamp)}
+                              </span>
+                              {!notification.read && (
+                                <Badge variant="secondary" className="text-xs">
+                                  New
+                                </Badge>
+                              )}
+                            </div>
                           </div>
-                          <div className="flex items-center space-x-1">
-                            {!notification.read && (
-                              <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                            )}
+                          
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => deleteNotification(notification.id)}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <X className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        
+                        {notification.actionRequired && (
+                          <div className="flex gap-2 mt-3">
                             <Button
-                              variant="ghost"
                               size="sm"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                deleteNotification(notification.id);
-                              }}
+                              onClick={() => handleNotificationAction(notification, 'accept')}
                             >
-                              <X className="w-3 h-3" />
+                              Accept
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleNotificationAction(notification, 'decline')}
+                            >
+                              Decline
                             </Button>
                           </div>
-                        </div>
+                        )}
+                        
+                        {!notification.actionRequired && !notification.read && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleNotificationAction(notification, 'view')}
+                            className="mt-2"
+                          >
+                            View Details
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>
-                ))
-              ) : (
-                <div className="p-8 text-center text-gray-500">
-                  <Bell className="w-8 h-8 mx-auto mb-2 text-gray-300" />
-                  <p>No notifications yet</p>
-                </div>
-              )}
+                );
+              })}
             </div>
-          </CardContent>
-        </Card>
-      )}
-    </div>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
