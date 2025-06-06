@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { ArrowLeft, MapPin, Star, Verified } from 'lucide-react';
-import BookingCalendar from '@/components/booking/BookingCalendar';
+import SimpleBookingCalendar from '@/components/booking/SimpleBookingCalendar';
 import PaymentModal from '@/components/payments/PaymentModal';
 
 const EnhancedBookService = () => {
@@ -140,7 +139,7 @@ const EnhancedBookService = () => {
 
           {/* Booking Form */}
           <div className="space-y-6">
-            <BookingCalendar
+            <SimpleBookingCalendar
               onDateSelect={setSelectedDate}
               onTimeSelect={setSelectedTime}
               selectedDate={selectedDate}

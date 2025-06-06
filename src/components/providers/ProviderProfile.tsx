@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Star, Verified, MapPin, Calendar, Phone, Mail, Globe, Camera } from 'lucide-react';
+import { Star, Verified, MapPin, Calendar, Phone, Mail, Globe } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface ProviderProfileProps {
