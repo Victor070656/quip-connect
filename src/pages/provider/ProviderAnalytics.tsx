@@ -43,20 +43,23 @@ const ProviderAnalytics = () => {
 
         {/* Key Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {recentMetrics.map((metric, index) => (
-            <Card key={index}>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">{metric.label}</p>
-                    <p className="text-2xl font-bold">{metric.value}</p>
-                    <p className="text-xs text-muted-foreground">{metric.description}</p>
+          {recentMetrics.map((metric, index) => {
+            const IconComponent = metric.icon;
+            return (
+              <Card key={index}>
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">{metric.label}</p>
+                      <p className="text-2xl font-bold">{metric.value}</p>
+                      <p className="text-xs text-muted-foreground">{metric.description}</p>
+                    </div>
+                    <IconComponent className="w-8 h-8 text-primary" />
                   </div>
-                  <metric.icon className="w-8 h-8 text-primary" />
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -136,7 +139,7 @@ const ProviderAnalytics = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span>Response Time</span>
-                <span className="font-semibold">< 2 hours</span>
+                <span className="font-semibold">&lt; 2 hours</span>
               </div>
               <div className="flex justify-between items-center">
                 <span>Completion Rate</span>
