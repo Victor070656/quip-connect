@@ -18,12 +18,14 @@ import {
   MessageCircle
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from '@/hooks/useTranslation';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import NotificationCenter from '@/components/notifications/NotificationCenter';
 
 const MobileNavigation = () => {
   const navigate = useNavigate();
   const { user, logout, userType } = useAuth();
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
@@ -35,23 +37,23 @@ const MobileNavigation = () => {
   const closeSheet = () => setIsOpen(false);
 
   const menuItems = [
-    { icon: Home, label: 'Home', href: '/' },
-    { icon: Grid3X3, label: 'Services', href: '/services' },
+    { icon: Home, label: t('common.home'), href: '/' },
+    { icon: Grid3X3, label: t('common.services'), href: '/services' },
   ];
 
   if (user) {
     menuItems.push(
-      { icon: Calendar, label: 'Dashboard', href: `/${userType}/dashboard` },
+      { icon: Calendar, label: t('dashboard.overview'), href: `/${userType}/dashboard` },
       { icon: MessageCircle, label: 'Messages', href: `/${userType}/messages` }
     );
   }
 
   return (
-    <nav className="bg-background border-b border-border sticky top-0 z-50 md:hidden">
+    <nav className="bg-background/80 backdrop-blur-xl border-b border-border/50 sticky top-0 z-50 md:hidden">
       <div className="px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-green-500 rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-lg">Q</span>
           </div>
           <span className="text-xl font-bold text-foreground">Quïp</span>
@@ -62,7 +64,7 @@ const MobileNavigation = () => {
           {/* Location Indicator */}
           <div className="flex items-center space-x-1 text-muted-foreground">
             <MapPin className="w-4 h-4" />
-            <span className="text-sm">Lagos</span>
+            <span className="text-sm">{t('common.location').split(',')[0]}</span>
           </div>
 
           {/* Search Button */}
@@ -85,10 +87,10 @@ const MobileNavigation = () => {
                     </Avatar>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background/95 backdrop-blur-xl border-border/50">
                   <div className="flex flex-col h-full">
                     {/* User Info */}
-                    <div className="flex items-center space-x-3 p-4 border-b border-border">
+                    <div className="flex items-center space-x-3 p-4 border-b border-border/50">
                       <Avatar className="w-12 h-12">
                         <AvatarImage src={user.avatar} />
                         <AvatarFallback>{user.name?.[0] || 'U'}</AvatarFallback>
@@ -131,12 +133,12 @@ const MobileNavigation = () => {
                         className="flex items-center space-x-3 px-4 py-3 text-foreground hover:bg-accent hover:text-accent-foreground rounded-lg mx-2"
                       >
                         <Settings className="w-5 h-5" />
-                        <span>Settings</span>
+                        <span>{t('dashboard.settings')}</span>
                       </Link>
                     </div>
 
                     {/* Theme Toggle & Logout */}
-                    <div className="border-t border-border p-4 space-y-2">
+                    <div className="border-t border-border/50 p-4 space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-foreground">Theme</span>
                         <ThemeToggle />
@@ -161,7 +163,7 @@ const MobileNavigation = () => {
                   <Menu className="w-5 h-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right">
+              <SheetContent side="right" className="bg-background/95 backdrop-blur-xl border-border/50">
                 <div className="flex flex-col h-full">
                   <div className="py-4">
                     {menuItems.map((item) => (
@@ -177,7 +179,7 @@ const MobileNavigation = () => {
                     ))}
                   </div>
                   
-                  <div className="border-t border-border p-4 space-y-4">
+                  <div className="border-t border-border/50 p-4 space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-foreground">Theme</span>
                       <ThemeToggle />
@@ -188,13 +190,13 @@ const MobileNavigation = () => {
                         className="w-full" 
                         onClick={() => { navigate('/login'); closeSheet(); }}
                       >
-                        Sign In
+                        {t('common.login')}
                       </Button>
                       <Button 
-                        className="w-full" 
+                        className="w-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700" 
                         onClick={() => { navigate('/register'); closeSheet(); }}
                       >
-                        Get Started
+                        {t('common.register')}
                       </Button>
                     </div>
                   </div>

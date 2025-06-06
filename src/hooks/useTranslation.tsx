@@ -39,22 +39,43 @@ const translations: Translations = {
     },
     home: {
       hero: {
-        title: 'Find Quality Services Near You',
-        subtitle: 'Connect with verified service providers in Lagos and beyond',
-        cta: 'Explore Services'
+        title: 'Find trusted local service providers',
+        subtitle: 'Connect with verified professionals in your area. From cleaning to tech support, book quality services with confidence.',
+        searchPlaceholder: 'What service do you need?',
+        searchButton: 'Search Services'
+      },
+      recommendations: {
+        title: 'Recommended for You',
+        subtitle: 'Based on your preferences and location'
       },
       categories: {
-        title: 'Popular Categories',
-        beauty: 'Beauty & Wellness',
-        home: 'Home Services',
+        title: 'Popular Service Categories',
+        subtitle: 'Browse services by category to find what you need',
+        cleaning: 'Cleaning',
+        beauty: 'Barber & Beauty',
         tech: 'Tech Support',
-        health: 'Healthcare',
-        education: 'Education',
-        events: 'Events'
+        events: 'Event Planning',
+        repair: 'Home Repair',
+        fitness: 'Fitness Training',
+        photography: 'Photography',
+        tutoring: 'Tutoring',
+        providers: 'providers'
       },
       featured: {
         title: 'Featured Services',
-        subtitle: 'Top-rated services in your area'
+        subtitle: 'Top-rated services from verified providers'
+      },
+      provider: {
+        title: 'Ready to start earning?',
+        subtitle: 'Join thousands of service providers already earning on Quïp. Create your profile and start getting bookings today.',
+        becomeProvider: 'Become a Provider',
+        learnMore: 'Learn More'
+      },
+      stats: {
+        activeProviders: 'Active Providers',
+        servicesCompleted: 'Services Completed',
+        averageRating: 'Average Rating',
+        serviceCategories: 'Service Categories'
       }
     },
     dashboard: {
@@ -97,22 +118,43 @@ const translations: Translations = {
     },
     home: {
       hero: {
-        title: 'Wa awọn iṣẹ to dara nitosi ọ',
-        subtitle: 'Sopọ pẹlu awọn olupese iṣẹ ti a ti ṣayẹwo ni Eko ati kaakiri',
-        cta: 'Ṣawari awọn iṣẹ'
+        title: 'Wa awọn olupese iṣẹ ti o gbẹkẹle nitosi',
+        subtitle: 'Sopọ pẹlu awọn alamọdaju ti a ti ṣayẹwo ni agbegbe rẹ. Lati mimọ si atilẹyin imọ-ẹrọ, gba awọn iṣẹ didara pẹlu igboya.',
+        searchPlaceholder: 'Kini iṣẹ ti o nilo?',
+        searchButton: 'Wa awọn iṣẹ'
+      },
+      recommendations: {
+        title: 'Ti a ṣe iṣeduro fun ọ',
+        subtitle: 'Da lori awọn ayanfẹ rẹ ati ipo rẹ'
       },
       categories: {
-        title: 'Awọn ẹka olokiki',
-        beauty: 'Ẹwa & Ilera',
-        home: 'Awọn iṣẹ ile',
+        title: 'Awọn ẹka olokiki iṣẹ',
+        subtitle: 'Ṣawari awọn iṣẹ nipasẹ ẹka lati wa ohun ti o nilo',
+        cleaning: 'Mimọ',
+        beauty: 'Onigbajamu & Ẹwa',
         tech: 'Atilẹyin imọ-ẹrọ',
-        health: 'Ilera',
-        education: 'Ẹkọ',
-        events: 'Awọn iṣẹlẹ'
+        events: 'Igbero iṣẹlẹ',
+        repair: 'Atunṣe ile',
+        fitness: 'Ikẹkọ amọdaju',
+        photography: 'Aworan yiya',
+        tutoring: 'Ikẹkọ',
+        providers: 'awọn olupese'
       },
       featured: {
         title: 'Awọn iṣẹ pataki',
-        subtitle: 'Awọn iṣẹ ti o ni iwọn giga julọ ni agbegbe rẹ'
+        subtitle: 'Awọn iṣẹ ti o gaju lati ọdọ awọn olupese ti a ṣayẹwo'
+      },
+      provider: {
+        title: 'Ti o ti ṣetan lati bẹrẹ ere?',
+        subtitle: 'Darapọ mọ ẹgbẹẹgbẹrun awọn olupese iṣẹ ti o ti n gba ere lori Quïp. Ṣẹda profaili rẹ ki o bẹrẹ gbigba awọn ifiṣura loni.',
+        becomeProvider: 'Di olupese',
+        learnMore: 'Kọ ẹkọ diẹ sii'
+      },
+      stats: {
+        activeProviders: 'Awọn olupese ti nṣiṣe',
+        servicesCompleted: 'Awọn iṣẹ ti o pari',
+        averageRating: 'Iwọn aropin',
+        serviceCategories: 'Awọn ẹka iṣẹ'
       }
     },
     dashboard: {
@@ -155,22 +197,43 @@ const translations: Translations = {
     },
     home: {
       hero: {
-        title: 'Nemo ingantattun ayyuka kusa da ku',
-        subtitle: 'Haɗu da masu ba da ayyuka da aka tabbatar a Lagos da sauransu',
-        cta: 'Binciko ayyuka'
+        title: 'Nemo masu ba da ayyuka da aka tabbatar kusa da ku',
+        subtitle: 'Haɗu da ƙwararrun ma\'aikata da aka tabbatar a yankinku. Daga tsaftacewa zuwa tallafin fasaha, yi ajiyar ayyuka masu kyau tare da kwarin gwiwa.',
+        searchPlaceholder: 'Wane aiki kuke bukata?',
+        searchButton: 'Nemo ayyuka'
+      },
+      recommendations: {
+        title: 'An ba da shawarar ku',
+        subtitle: 'Dangane da abubuwan da kuke so da wurin ku'
       },
       categories: {
-        title: 'Sanannun nau\'oci',
-        beauty: 'Kyau da lafiya',
-        home: 'Ayyukan gida',
+        title: 'Sanannun nau\'oci na ayyuka',
+        subtitle: 'Binciko ayyuka ta nau\'i don nemo abin da kuke bukata',
+        cleaning: 'Tsaftacewa',
+        beauty: 'Aski da Kyakkyawa',
         tech: 'Tallafin fasaha',
-        health: 'Kiwon lafiya',
-        education: 'Ilimi',
-        events: 'Abubuwan da suka faru'
+        events: 'Tsarin abubuwan da suka faru',
+        repair: 'Gyaran gida',
+        fitness: 'Horar da lafiya',
+        photography: 'Daukar hoto',
+        tutoring: 'Koyarwa',
+        providers: 'masu samarwa'
       },
       featured: {
         title: 'Ayyuka masu dacewa',
-        subtitle: 'Ayyuka mafi girma a yankinku'
+        subtitle: 'Ayyuka mafi girma daga masu samarwa da aka tabbatar'
+      },
+      provider: {
+        title: 'A shirye don fara samun kuɗi?',
+        subtitle: 'Ku shiga dubban masu ba da ayyuka da ke samun kuɗi a kan Quïp. Ƙirƙiri bayanin martaba ku kuma fara samun ajiye a yau.',
+        becomeProvider: 'Zama mai samarwa',
+        learnMore: 'Koyi ƙari'
+      },
+      stats: {
+        activeProviders: 'Masu samarwa masu aiki',
+        servicesCompleted: 'Ayyukan da aka kammala',
+        averageRating: 'Matsakaicin kima',
+        serviceCategories: 'Nau\'oci na ayyuka'
       }
     },
     dashboard: {
@@ -213,22 +276,43 @@ const translations: Translations = {
     },
     home: {
       hero: {
-        title: 'Chọta ọrụ dị mma n\'akụkụ gị',
-        subtitle: 'Jikọọ na ndị na-enye ọrụ akwadoro na Lagos na ebe ndị ọzọ',
-        cta: 'Nyochaa ọrụ'
+        title: 'Chọta ndị na-enye ọrụ obodo kwesịrị ntụkwasị obi',
+        subtitle: 'Jikọọ na ndị ọkachamara akwadoro n\'ógbè gị. Site na nhicha ruo na nkwado teknụzụ, debe ọrụ dị mma na ntụkwasị obi.',
+        searchPlaceholder: 'Kedu ọrụ ị chọrọ?',
+        searchButton: 'Chọọ ọrụ'
+      },
+      recommendations: {
+        title: 'Atụnyere maka gị',
+        subtitle: 'Dabere na mmasị gị na ọnọdụ gị'
       },
       categories: {
-        title: 'Ụdị ndị ama ama',
-        beauty: 'Ịma mma na ahụ ike',
-        home: 'Ọrụ ụlọ',
+        title: 'Ụdị ọrụ ndị ama ama',
+        subtitle: 'Nyochaa ọrụ site na ụdị iji chọta ihe ị chọrọ',
+        cleaning: 'Nhicha',
+        beauty: 'Nkata ntutu na ịma mma',
         tech: 'Nkwado teknụzụ',
-        health: 'Nlekọta ahụ ike',
-        education: 'Agụmakwụkwọ',
-        events: 'Ihe omume'
+        events: 'Nhazi mmemme',
+        repair: 'Nrụzi ụlọ',
+        fitness: 'Ọzụzụ ahụ ike',
+        photography: 'Ise foto',
+        tutoring: 'Nkuzi',
+        providers: 'ndị na-enye'
       },
       featured: {
         title: 'Ọrụ pụrụ iche',
-        subtitle: 'Ọrụ ndị kasị mma n\'ógbè gị'
+        subtitle: 'Ọrụ kasị mma site na ndị na-enye akwadoro'
+      },
+      provider: {
+        title: 'Dị njikere ịmalite inweta ego?',
+        subtitle: 'Sonye na ọtụtụ puku ndị na-enye ọrụ na-enwetalarị ego na Quïp. Mepụta profaịlụ gị ma malite inweta ndebe taa.',
+        becomeProvider: 'Bụrụ onye na-enye',
+        learnMore: 'Mụtakwuo'
+      },
+      stats: {
+        activeProviders: 'Ndị na-enye na-arụ ọrụ',
+        servicesCompleted: 'Ọrụ rụchara',
+        averageRating: 'Nkọwa nkezi',
+        serviceCategories: 'Ụdị ọrụ'
       }
     },
     dashboard: {

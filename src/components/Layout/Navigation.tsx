@@ -34,12 +34,12 @@ const Navigation = () => {
       <MobileNavigation />
       
       {/* Desktop Navigation */}
-      <nav className="bg-background border-b border-border sticky top-0 z-50 hidden md:block">
+      <nav className="bg-background/80 backdrop-blur-xl border-b border-border/50 sticky top-0 z-50 hidden md:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-green-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">Q</span>
               </div>
               <span className="text-xl font-bold text-foreground">Quïp</span>
@@ -52,7 +52,7 @@ const Navigation = () => {
                 <input
                   type="text"
                   placeholder={t('common.search')}
-                  className="w-full pl-10 pr-4 py-2 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
+                  className="w-full pl-10 pr-4 py-2 border border-input rounded-lg bg-background/80 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
                 />
               </div>
             </div>
@@ -92,7 +92,7 @@ const Navigation = () => {
                         </Avatar>
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuContent align="end" className="w-56 bg-background/95 backdrop-blur-xl border-border/50">
                       <DropdownMenuItem onClick={() => navigate(`/${userType}/dashboard`)}>
                         <User className="w-4 h-4 mr-2" />
                         {t('dashboard.overview')}
@@ -121,7 +121,7 @@ const Navigation = () => {
                   <Button variant="ghost" size="sm" onClick={() => navigate('/login')}>
                     {t('common.login')}
                   </Button>
-                  <Button size="sm" onClick={() => navigate('/register')}>
+                  <Button size="sm" onClick={() => navigate('/register')} className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700">
                     {t('common.register')}
                   </Button>
                 </div>
