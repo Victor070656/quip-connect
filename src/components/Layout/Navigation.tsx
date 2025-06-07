@@ -14,7 +14,7 @@ import { MapPin, Search, User, Settings, LogOut, Plus } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from '@/hooks/useTranslation';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
-import NotificationCenter from '@/components/notifications/NotificationCenter';
+import NotificationDropdown from '@/components/notifications/NotificationDropdown';
 import LanguageSelector from '@/components/language/LanguageSelector';
 import MobileNavigation from './MobileNavigation';
 
@@ -74,12 +74,12 @@ const Navigation = () => {
               {user ? (
                 <div className="flex items-center space-x-2">
                   {/* Notifications */}
-                  <NotificationCenter />
+                  <NotificationDropdown />
                   
                   {userType === 'provider' && (
                     <Button variant="outline" size="sm" onClick={() => navigate('/provider/services/add')}>
                       <Plus className="w-4 h-4 mr-1" />
-                      Add Service
+                      {t('navigation.addService')}
                     </Button>
                   )}
                   
@@ -101,7 +101,7 @@ const Navigation = () => {
                       {user.email === 'admin@quip.com' && (
                         <DropdownMenuItem onClick={() => navigate('/admin/dashboard')}>
                           <Settings className="w-4 h-4 mr-2" />
-                          Admin Dashboard
+                          {t('navigation.adminDashboard')}
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuItem onClick={() => navigate(`/${userType}/profile`)}>
@@ -111,7 +111,7 @@ const Navigation = () => {
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={handleLogout}>
                         <LogOut className="w-4 h-4 mr-2" />
-                        Sign Out
+                        {t('navigation.signOut')}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

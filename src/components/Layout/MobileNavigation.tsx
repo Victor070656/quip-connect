@@ -20,7 +20,7 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from '@/hooks/useTranslation';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
-import NotificationCenter from '@/components/notifications/NotificationCenter';
+import NotificationDropdown from '@/components/notifications/NotificationDropdown';
 
 const MobileNavigation = () => {
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ const MobileNavigation = () => {
 
           {user ? (
             <div className="flex items-center space-x-2">
-              <NotificationCenter />
+              <NotificationDropdown />
               
               <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild>
@@ -123,7 +123,7 @@ const MobileNavigation = () => {
                           className="flex items-center space-x-3 px-4 py-3 text-foreground hover:bg-accent hover:text-accent-foreground rounded-lg mx-2"
                         >
                           <Plus className="w-5 h-5" />
-                          <span>Add Service</span>
+                          <span>{t('navigation.addService')}</span>
                         </Link>
                       )}
 
@@ -140,7 +140,7 @@ const MobileNavigation = () => {
                     {/* Theme Toggle & Logout */}
                     <div className="border-t border-border/50 p-4 space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-foreground">Theme</span>
+                        <span className="text-sm text-foreground">{t('navigation.theme')}</span>
                         <ThemeToggle />
                       </div>
                       <Button
@@ -149,7 +149,7 @@ const MobileNavigation = () => {
                         onClick={handleLogout}
                       >
                         <LogOut className="w-4 h-4 mr-2" />
-                        Sign Out
+                        {t('navigation.signOut')}
                       </Button>
                     </div>
                   </div>
@@ -181,7 +181,7 @@ const MobileNavigation = () => {
                   
                   <div className="border-t border-border/50 p-4 space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-foreground">Theme</span>
+                      <span className="text-sm text-foreground">{t('navigation.theme')}</span>
                       <ThemeToggle />
                     </div>
                     <div className="space-y-2">

@@ -35,7 +35,58 @@ const translations: Translations = {
       back: 'Back',
       next: 'Next',
       submit: 'Submit',
-      close: 'Close'
+      close: 'Close',
+      time: {
+        minutesAgo: 'm ago',
+        hoursAgo: 'h ago',
+        daysAgo: 'd ago'
+      }
+    },
+    navigation: {
+      addService: 'Add Service',
+      adminDashboard: 'Admin Dashboard',
+      signOut: 'Sign Out',
+      theme: 'Theme'
+    },
+    notifications: {
+      title: 'Notifications',
+      empty: 'No notifications yet',
+      new: 'New',
+      markAllRead: 'Mark All Read',
+      allRead: 'All notifications marked as read',
+      allReadDescription: 'Your notification center has been updated.',
+      booking: {
+        newRequest: 'New Booking Request',
+        newRequestMessage: 'John Doe has requested a house cleaning service for tomorrow at 2 PM'
+      },
+      payment: {
+        received: 'Payment Received',
+        receivedMessage: 'You received ₦15,000 for cleaning service completed on Jan 14'
+      },
+      message: {
+        new: 'New Message',
+        newMessage: 'Sarah Johnson sent you a message about the upcoming appointment',
+        newCustomerMessage: 'You have received a new message from a customer'
+      },
+      review: {
+        new: 'New Review',
+        newReview: 'Mary Smith left a 5-star review for your recent service'
+      },
+      system: {
+        verification: 'Profile Verification',
+        verificationComplete: 'Your profile verification is complete! You can now receive more bookings'
+      },
+      actions: {
+        accept: 'Accept',
+        decline: 'Decline',
+        viewDetails: 'View Details',
+        bookingAccepted: 'Booking Accepted',
+        bookingAcceptedDescription: 'The booking request has been accepted.',
+        bookingDeclined: 'Booking Declined',
+        bookingDeclinedDescription: 'The booking request has been declined.',
+        redirecting: 'Redirecting',
+        redirectingDescription: 'Opening the relevant page...'
+      }
     },
     home: {
       hero: {
@@ -114,7 +165,58 @@ const translations: Translations = {
       back: 'Pada',
       next: 'Tẹle',
       submit: 'Fi silẹ',
-      close: 'Pa'
+      close: 'Pa',
+      time: {
+        minutesAgo: 'iṣẹju sẹhin',
+        hoursAgo: 'wakati sẹhin',
+        daysAgo: 'ọjọ sẹhin'
+      }
+    },
+    navigation: {
+      addService: 'Fi iṣẹ kun',
+      adminDashboard: 'Pẹpẹ alakoso',
+      signOut: 'Jade',
+      theme: 'Akopọ'
+    },
+    notifications: {
+      title: 'Awọn iwifun',
+      empty: 'Ko si iwifun sibẹ',
+      new: 'Tuntun',
+      markAllRead: 'Samisi gbogbo bi ti ka',
+      allRead: 'Gbogbo awọn iwifun ti samisi bi ti ka',
+      allReadDescription: 'Ile-iṣẹ iwifun rẹ ti di imudojuiwọn.',
+      booking: {
+        newRequest: 'Ibeere ifiṣura tuntun',
+        newRequestMessage: 'John Doe ti beere iṣẹ mimọ ile fun ọla ni 2 PM'
+      },
+      payment: {
+        received: 'Owo ti gba',
+        receivedMessage: 'O gba ₦15,000 fun iṣẹ mimọ ti o pari ni Jan 14'
+      },
+      message: {
+        new: 'Ifiranṣẹ tuntun',
+        newMessage: 'Sarah Johnson fi ifiranṣẹ ranṣẹ si ọ nipa ipade ti nbọ',
+        newCustomerMessage: 'O ti gba ifiranṣẹ tuntun lati ọdọ onibara kan'
+      },
+      review: {
+        new: 'Atunwo tuntun',
+        newReview: 'Mary Smith fi atunwo irawo marun silẹ fun iṣẹ rẹ to ṣẹṣẹ'
+      },
+      system: {
+        verification: 'Ijẹrisi profaili',
+        verificationComplete: 'Ijẹrisi profaili rẹ ti pari! O le gba awọn ifiṣura diẹ sii bayi'
+      },
+      actions: {
+        accept: 'Gba',
+        decline: 'Kọ',
+        viewDetails: 'Wo alaye',
+        bookingAccepted: 'Ifiṣura ti gba',
+        bookingAcceptedDescription: 'Ibeere ifiṣura ti gba.',
+        bookingDeclined: 'Ifiṣura ti kọ',
+        bookingDeclinedDescription: 'Ibeere ifiṣura ti kọ.',
+        redirecting: 'N tọ sọna',
+        redirectingDescription: 'N ṣi oju-iwe ti o yẹ...'
+      }
     },
     home: {
       hero: {
@@ -193,7 +295,58 @@ const translations: Translations = {
       back: 'Koma baya',
       next: 'Na gaba',
       submit: 'Aika',
-      close: 'Rufe'
+      close: 'Rufe',
+      time: {
+        minutesAgo: 'minti da suka wuce',
+        hoursAgo: 'sa\'o\'i da suka wuce',
+        daysAgo: 'kwanaki da suka wuce'
+      }
+    },
+    navigation: {
+      addService: 'Kara aiki',
+      adminDashboard: 'Dashboard Admin',
+      signOut: 'Fita',
+      theme: 'Jigo'
+    },
+    notifications: {
+      title: 'Sanarwa',
+      empty: 'Babu sanarwa har yanzu',
+      new: 'Sabon',
+      markAllRead: 'Yi duka alamar karanta',
+      allRead: 'An yi wa dukan sanarwa alamar karanta',
+      allReadDescription: 'An sabunta cibiyar sanarwar ku.',
+      booking: {
+        newRequest: 'Sabuwar bukatar ajiye',
+        newRequestMessage: 'John Doe ya bukaci sabis na tsaftace gida gobe da karfe 2 na yamma'
+      },
+      payment: {
+        received: 'An karbi kudi',
+        receivedMessage: 'Kun karbi ₦15,000 don sabis na tsaftacewa da aka kammala a ranar Jan 14'
+      },
+      message: {
+        new: 'Sabuwar sako',
+        newMessage: 'Sarah Johnson ta aiko muku da sako game da alkawarin da ke zuwa',
+        newCustomerMessage: 'Kun karbi sabuwar sako daga abokin ciniki'
+      },
+      review: {
+        new: 'Sabuwar sharhi',
+        newReview: 'Mary Smith ta bar sharhi na taurari 5 don sabis dinku na kwanan nan'
+      },
+      system: {
+        verification: 'Tabbatar bayanan martaba',
+        verificationComplete: 'Tabbatar bayanan martaba ya kammala! Yanzu kuna iya karban ƙarin ajiye'
+      },
+      actions: {
+        accept: 'Karba',
+        decline: 'Ki',
+        viewDetails: 'Duba dalla-dalla',
+        bookingAccepted: 'An karbi ajiye',
+        bookingAcceptedDescription: 'An karbi bukatar ajiye.',
+        bookingDeclined: 'An ki ajiye',
+        bookingDeclinedDescription: 'An ki bukatar ajiye.',
+        redirecting: 'Ana turawa',
+        redirectingDescription: 'Ana buɗe shafin da ya dace...'
+      }
     },
     home: {
       hero: {
@@ -272,7 +425,58 @@ const translations: Translations = {
       back: 'Laghachi azụ',
       next: 'Ọzọ',
       submit: 'Zipu',
-      close: 'Mechie'
+      close: 'Mechie',
+      time: {
+        minutesAgo: 'nkeji gara aga',
+        hoursAgo: 'awa gara aga',
+        daysAgo: 'ụbọchị gara aga'
+      }
+    },
+    navigation: {
+      addService: 'Tinye ọrụ',
+      adminDashboard: 'Dashboard nchịkwa',
+      signOut: 'Pụọ',
+      theme: 'Isiokwu'
+    },
+    notifications: {
+      title: 'Ọkwa',
+      empty: 'Enweghị ọkwa',
+      new: 'Ọhụrụ',
+      markAllRead: 'Kaa niile dị ka agụrụ',
+      allRead: 'Akara niile ọkwa dị ka agụrụ',
+      allReadDescription: 'Emelitela ebe ọkwa gị.',
+      booking: {
+        newRequest: 'Arịrịọ ndebe ọhụrụ',
+        newRequestMessage: 'John Doe arịọla ọrụ nhicha ụlọ maka echi na elekere 2 PM'
+      },
+      payment: {
+        received: 'Nnatara ego',
+        receivedMessage: 'Ị nwetara ₦15,000 maka ọrụ nhicha emechara na Jan 14'
+      },
+      message: {
+        new: 'Ozi ọhụrụ',
+        newMessage: 'Sarah Johnson zitere gị ozi banyere nhọpụta na-abịa',
+        newCustomerMessage: 'Ị nwetara ozi ọhụrụ site n\'aka onye ahịa'
+      },
+      review: {
+        new: 'Nyocha ọhụrụ',
+        newReview: 'Mary Smith hapụrụ nyocha kpakpando 5 maka ọrụ gị na nso nso a'
+      },
+      system: {
+        verification: 'Nkwenye profaịlụ',
+        verificationComplete: 'Nkwenye profaịlụ gị zuru ezu! Ị nwere ike ịnweta ọtụtụ ndebe ugbu a'
+      },
+      actions: {
+        accept: 'Kwere',
+        decline: 'Jụ',
+        viewDetails: 'Lee nkọwa',
+        bookingAccepted: 'Anabatara ndebe',
+        bookingAcceptedDescription: 'Anabatara arịrịọ ndebe ahụ.',
+        bookingDeclined: 'Ajụrụ ndebe',
+        bookingDeclinedDescription: 'Ajụrụ arịrịọ ndebe ahụ.',
+        redirecting: 'Na-atụgharị',
+        redirectingDescription: 'Na-emepe ibe kwesịrị ekwesị...'
+      }
     },
     home: {
       hero: {

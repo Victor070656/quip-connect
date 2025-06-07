@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Bell, Check, X, Clock, Calendar, DollarSign, MessageSquare, Star } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface Notification {
   id: string;
@@ -19,12 +20,13 @@ interface Notification {
 
 const NotificationCenter = () => {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [notifications, setNotifications] = useState<Notification[]>([
     {
       id: '1',
       type: 'booking',
-      title: 'New Booking Request',
-      message: 'John Doe has requested a house cleaning service for tomorrow at 2 PM',
+      title: t('notifications.booking.newRequest'),
+      message: t('notifications.booking.newRequestMessage'),
       timestamp: '2024-01-15T10:30:00Z',
       read: false,
       actionRequired: true,
@@ -33,8 +35,8 @@ const NotificationCenter = () => {
     {
       id: '2',
       type: 'payment',
-      title: 'Payment Received',
-      message: 'You received ₦15,000 for cleaning service completed on Jan 14',
+      title: t('notifications.payment.received'),
+      message: t('notifications.payment.receivedMessage'),
       timestamp: '2024-01-15T09:15:00Z',
       read: false,
       data: { amount: 15000, bookingId: 'booking-2' }
@@ -42,8 +44,8 @@ const NotificationCenter = () => {
     {
       id: '3',
       type: 'message',
-      title: 'New Message',
-      message: 'Sarah Johnson sent you a message about the upcoming appointment',
+      title: t('notifications.message.new'),
+      message: t('notifications.message.newMessage'),
       timestamp: '2024-01-15T08:45:00Z',
       read: true,
       data: { messageId: 'msg-1', senderId: 'provider-1' }
@@ -51,8 +53,8 @@ const NotificationCenter = () => {
     {
       id: '4',
       type: 'review',
-      title: 'New Review',
-      message: 'Mary Smith left a 5-star review for your recent service',
+      title: t('notifications.review.new'),
+      message: t('notifications.review.newReview'),
       timestamp: '2024-01-14T16:20:00Z',
       read: true,
       data: { reviewId: 'review-1', rating: 5 }
@@ -60,8 +62,8 @@ const NotificationCenter = () => {
     {
       id: '5',
       type: 'system',
-      title: 'Profile Verification',
-      message: 'Your profile verification is complete! You can now receive more bookings',
+      title: t('notifications.system.verification'),
+      message: t('notifications.system.verificationComplete'),
       timestamp: '2024-01-14T14:10:00Z',
       read: false,
       data: { verificationType: 'identity' }
@@ -113,11 +115,11 @@ const NotificationCenter = () => {
     const days = Math.floor(diff / 86400000);
 
     if (minutes < 60) {
-      return `${minutes}m ago`;
+      return `${minutes}${t('common.time.minutesAgo')}`;
     } else if (hours < 24) {
-      return `${hours}h ago`;
+      return `${hours}${t('common.time.hoursAgo')}`;
     } else {
-      return `${days}d ago`;
+      return `${days}${t('common.time.daysAgo')}`;
     }
   };
 
@@ -134,8 +136,8 @@ const NotificationCenter = () => {
       prev.map(notification => ({ ...notification, read: true }))
     );
     toast({
-      title: "All notifications marked as read",
-      description: "Your notification center has been updated.",
+      title: t('notifications.allRead'),
+      description: t('notifications.allReadDescription'),
     });
   };
 
@@ -143,20 +145,20 @@ const NotificationCenter = () => {
     switch (action) {
       case 'accept':
         toast({
-          title: "Booking Accepted",
-          description: "The booking request has been accepted.",
+          title: t('notifications.actions.bookingAccepted'),
+          description: t('notifications.actions.bookingAcceptedDescription'),
         });
         break;
       case 'decline':
         toast({
-          title: "Booking Declined",
-          description: "The booking request has been declined.",
+          title: t('notifications.actions.bookingDeclined'),
+          description: t('notifications.actions.bookingDeclinedDescription'),
         });
         break;
       case 'view':
         toast({
-          title: "Redirecting",
-          description: "Opening the relevant page...",
+          title: t('notifications.actions.redirecting'),
+          description: t('notifications.actions.redirectingDescription'),
         });
         break;
     }
@@ -174,21 +176,21 @@ const NotificationCenter = () => {
         const newNotification: Notification = {
           id: `notif-${Date.now()}`,
           type: 'message',
-          title: 'New Message',
-          message: 'You have received a new message from a customer',
+          title: t('notifications.message.new'),
+          message: t('notifications.message.newCustomerMessage'),
           timestamp: new Date().toISOString(),
           read: false
         };
         setNotifications(prev => [newNotification, ...prev]);
         toast({
-          title: "New Notification",
+          title: t('notifications.new'),
           description: newNotification.message,
         });
       }
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [toast]);
+  }, [toast, t]);
 
   return (
     <Card className="w-full max-w-2xl">
@@ -196,7 +198,7 @@ const NotificationCenter = () => {
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <Bell className="w-5 h-5" />
-            Notifications
+            {t('notifications.title')}
             {unreadCount > 0 && (
               <Badge variant="destructive" className="ml-2">
                 {unreadCount}
@@ -206,7 +208,7 @@ const NotificationCenter = () => {
           {unreadCount > 0 && (
             <Button variant="outline" size="sm" onClick={markAllAsRead}>
               <Check className="w-4 h-4 mr-2" />
-              Mark All Read
+              {t('notifications.markAllRead')}
             </Button>
           )}
         </div>
@@ -216,7 +218,7 @@ const NotificationCenter = () => {
           {notifications.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
               <Bell className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p>No notifications yet</p>
+              <p>{t('notifications.empty')}</p>
             </div>
           ) : (
             <div className="space-y-1">
@@ -252,7 +254,7 @@ const NotificationCenter = () => {
                               </span>
                               {!notification.read && (
                                 <Badge variant="secondary" className="text-xs">
-                                  New
+                                  {t('notifications.new')}
                                 </Badge>
                               )}
                             </div>
@@ -274,14 +276,14 @@ const NotificationCenter = () => {
                               size="sm"
                               onClick={() => handleNotificationAction(notification, 'accept')}
                             >
-                              Accept
+                              {t('notifications.actions.accept')}
                             </Button>
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => handleNotificationAction(notification, 'decline')}
                             >
-                              Decline
+                              {t('notifications.actions.decline')}
                             </Button>
                           </div>
                         )}
@@ -293,7 +295,7 @@ const NotificationCenter = () => {
                             onClick={() => handleNotificationAction(notification, 'view')}
                             className="mt-2"
                           >
-                            View Details
+                            {t('notifications.actions.viewDetails')}
                           </Button>
                         )}
                       </div>
