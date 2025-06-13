@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   Calendar,
   Settings,
@@ -17,7 +16,7 @@ import {
   FileText,
   Bell,
   Workflow,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -29,10 +28,10 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useAuth } from '@/hooks/useAuth';
-import { ThemeToggle } from '@/components/theme/ThemeToggle';
+} from "@/components/ui/sidebar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/hooks/useAuth";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 interface SidebarItem {
   title: string;
@@ -47,74 +46,74 @@ interface SidebarGroup {
 
 const customerMenuGroups: SidebarGroup[] = [
   {
-    label: 'Dashboard',
+    label: "Dashboard",
     items: [
-      { title: 'Overview', url: '/customer/dashboard', icon: Home },
-      { title: 'My Bookings', url: '/customer/bookings', icon: Calendar },
-      { title: 'Messages', url: '/customer/messages', icon: MessageSquare },
-      { title: 'Favorites', url: '/customer/favorites', icon: Star },
+      { title: "Overview", url: "/customer/dashboard", icon: Home },
+      { title: "My Bookings", url: "/customer/bookings", icon: Calendar },
+      { title: "Messages", url: "/customer/messages", icon: MessageSquare },
+      { title: "Favorites", url: "/customer/favorites", icon: Star },
     ],
   },
   {
-    label: 'Account',
+    label: "Account",
     items: [
-      { title: 'Profile', url: '/customer/profile', icon: User },
-      { title: 'Settings', url: '/customer/settings', icon: Settings },
+      { title: "Profile", url: "/customer/profile", icon: User },
+      { title: "Settings", url: "/customer/settings", icon: Settings },
     ],
   },
 ];
 
 const providerMenuGroups: SidebarGroup[] = [
   {
-    label: 'Dashboard',
+    label: "Dashboard",
     items: [
-      { title: 'Overview', url: '/provider/dashboard', icon: Home },
-      { title: 'Operations', url: '/provider/operations', icon: Workflow },
-      { title: 'Services', url: '/provider/services', icon: Package },
-      { title: 'Bookings', url: '/provider/bookings', icon: Calendar },
+      { title: "Overview", url: "/provider/dashboard", icon: Home },
+      { title: "Operations", url: "/provider/operations", icon: Workflow },
+      { title: "Services", url: "/provider/services", icon: Package },
+      { title: "Bookings", url: "/provider/bookings", icon: Calendar },
     ],
   },
   {
-    label: 'Business',
+    label: "Business",
     items: [
-      { title: 'Analytics', url: '/provider/analytics', icon: BarChart3 },
-      { title: 'Reviews', url: '/provider/reviews', icon: Star },
-      { title: 'Messages', url: '/provider/messages', icon: MessageSquare },
-      { title: 'Earnings', url: '/provider/earnings', icon: DollarSign },
+      { title: "Analytics", url: "/provider/analytics", icon: BarChart3 },
+      { title: "Reviews", url: "/provider/reviews", icon: Star },
+      { title: "Messages", url: "/provider/messages", icon: MessageSquare },
+      { title: "Earnings", url: "/provider/earnings", icon: DollarSign },
     ],
   },
   {
-    label: 'Account',
+    label: "Account",
     items: [
-      { title: 'Profile', url: '/provider/profile', icon: User },
-      { title: 'Verification', url: '/provider/verification', icon: Shield },
-      { title: 'Settings', url: '/provider/settings', icon: Settings },
+      { title: "Profile", url: "/provider/profile", icon: User },
+      { title: "Verification", url: "/provider/verification", icon: Shield },
+      { title: "Settings", url: "/provider/settings", icon: Settings },
     ],
   },
 ];
 
 const adminMenuGroups: SidebarGroup[] = [
   {
-    label: 'Administration',
+    label: "Administration",
     items: [
-      { title: 'Overview', url: '/admin/dashboard', icon: Home },
-      { title: 'Users', url: '/admin/users', icon: Users },
-      { title: 'Services', url: '/admin/services', icon: Package },
-      { title: 'Analytics', url: '/admin/analytics', icon: BarChart3 },
+      { title: "Overview", url: "/admin/dashboard", icon: Home },
+      { title: "Users", url: "/admin/users", icon: Users },
+      { title: "Services", url: "/admin/services", icon: Package },
+      { title: "Analytics", url: "/admin/analytics", icon: BarChart3 },
     ],
   },
   {
-    label: 'Management',
+    label: "Management",
     items: [
-      { title: 'Reports', url: '/admin/reports', icon: FileText },
-      { title: 'Moderation', url: '/admin/moderation', icon: Shield },
-      { title: 'Settings', url: '/admin/settings', icon: Settings },
+      { title: "Reports", url: "/admin/reports", icon: FileText },
+      { title: "Moderation", url: "/admin/moderation", icon: Shield },
+      { title: "Settings", url: "/admin/settings", icon: Settings },
     ],
   },
 ];
 
 interface DashboardSidebarProps {
-  userType: 'customer' | 'provider' | 'admin';
+  userType: "customer" | "provider" | "admin";
 }
 
 export function DashboardSidebar({ userType }: DashboardSidebarProps) {
@@ -123,11 +122,11 @@ export function DashboardSidebar({ userType }: DashboardSidebarProps) {
 
   const getMenuGroups = () => {
     switch (userType) {
-      case 'customer':
+      case "customer":
         return customerMenuGroups;
-      case 'provider':
+      case "provider":
         return providerMenuGroups;
-      case 'admin':
+      case "admin":
         return adminMenuGroups;
       default:
         return [];
@@ -140,8 +139,9 @@ export function DashboardSidebar({ userType }: DashboardSidebarProps) {
     <Sidebar variant="inset">
       <SidebarHeader>
         <div className="flex items-center gap-2 px-4 py-2">
-          <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-green-500 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">Q</span>
+          <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-green-500 rounded-xl flex items-center justify-center">
+            {/* <span className="text-white font-bold text-lg">Q</span> */}
+            <img src="/logo.png" alt="" className="rounded-xl" />
           </div>
           <span className="text-xl font-bold">Quïp</span>
         </div>
@@ -178,11 +178,13 @@ export function DashboardSidebar({ userType }: DashboardSidebarProps) {
             <div className="flex items-center gap-2 px-2 py-1">
               <Avatar className="w-8 h-8">
                 <AvatarImage src={user?.avatar} />
-                <AvatarFallback>{user?.name?.[0] || 'U'}</AvatarFallback>
+                <AvatarFallback>{user?.name?.[0] || "U"}</AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{user?.name}</p>
-                <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+                <p className="text-xs text-muted-foreground truncate">
+                  {user?.email}
+                </p>
               </div>
               <ThemeToggle />
             </div>

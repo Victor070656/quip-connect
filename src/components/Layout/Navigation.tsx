@@ -40,7 +40,8 @@ const Navigation = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">Q</span>
+                {/* <span className="text-white font-bold text-lg">Q</span> */}
+                <img src="/logo.png" className="rounded-lg" alt="" />
               </div>
               <span className="text-xl font-bold text-foreground">Quïp</span>
             </Link>
